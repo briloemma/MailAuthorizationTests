@@ -10,9 +10,9 @@ namespace MailAuthorizationTests.Environment
     {
         public static void GoToURL (string url)
         {
-            Webdriver.GetInstance().Manage().Cookies.DeleteAllCookies();
-            Webdriver.GetInstance().Navigate().GoToUrl(url); ;
-            Webdriver.GetInstance().Manage().Window.Maximize();
+            WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
+            WebDriverFactory.GetInstance().Navigate().GoToUrl(url); ;
+            WebDriverFactory.GetInstance().Manage().Window.Maximize();
         }
     }
 }

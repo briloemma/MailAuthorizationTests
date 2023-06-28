@@ -16,10 +16,10 @@ namespace MailAuthorizationTests.PageObjects
             _locator = locator;
         }
 
-        public static IWebDriver WebDriver => Webdriver.GetInstance();
+        public static IWebDriver WebDriver => WebDriverFactory.GetInstance();
         public bool WaitUntilPageIsDispayed()
         {
-            return WaitUntil.GetElementIfDisplayed(WebDriver,_locator, $"{GetType().Name} is not found").Displayed; 
+            return WaitExtensions.WaitForElementIsDisplayed(WebDriver,_locator, $"{GetType().Name} is not found"); 
         }
     }
 }

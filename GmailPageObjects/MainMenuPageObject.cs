@@ -14,7 +14,7 @@ namespace MailAuthorizationTests.PageObjects
         private readonly By _writeNewEmailButton = By.CssSelector("[style='user-select: none']");
         private readonly By _sendToEmailField = By.CssSelector("[role = 'combobox']");
         private readonly By _emailTextField = By.CssSelector("[role = 'textbox']");
-        private readonly By _sendButton = By.Id(":6a");
+        private readonly By _sendButton = By.XPath("//div[contains(@data-tooltip, 'Enter')]");
         private By OpenEmailLine(string email) => By.CssSelector($"[email={email}]");
         private readonly By _accountButton = By.CssSelector("[class='gb_k gbii']");
         private readonly By _goToAccountSettingsButton = By.XPath("//a[contains(@href, 'myaccount.google.com/?utm')]");
@@ -28,13 +28,13 @@ namespace MailAuthorizationTests.PageObjects
         public MainMenuPageObject SendEmail(string sendToEmail, string emailText)
         {
             logger.Info($"Sending email to  {sendToEmail}");
-            WaitUntil.GetElementIfDisplayed(WebDriver, _writeNewEmailButton);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _writeNewEmailButton);
             WebDriver.FindElement(_writeNewEmailButton).Click();
-            WaitUntil.GetElementIfDisplayed(WebDriver, _sendToEmailField);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _sendToEmailField);
             WebDriver.FindElement(_sendToEmailField).SendKeys(sendToEmail);
-            WaitUntil.GetElementIfDisplayed(WebDriver, _emailTextField);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailTextField);
             WebDriver.FindElement(_emailTextField).SendKeys(emailText);
-            WaitUntil.GetElementIfDisplayed(WebDriver, _sendButton);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _sendButton);
             WebDriver.FindElement(_sendButton).Click();
             logger.Error($"Couldn't send an email to {sendToEmail}");
             return this;

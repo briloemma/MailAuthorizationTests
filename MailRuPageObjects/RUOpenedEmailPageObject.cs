@@ -1,4 +1,5 @@
-﻿using MailAuthorizationTests.PageObjects;
+﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.PageObjects;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.MailRuPageObjects
@@ -7,6 +8,9 @@ namespace MailAuthorizationTests.MailRuPageObjects
     {
         private readonly By _respondButton = By.CssSelector("span[title='Ответить']");
         private readonly By _deleteEmailButton = By.CssSelector("[title='Удалить']");
+        private readonly By _responceButton = By.XPath("//div[contains(@class, 'element_reply')]");
+        private readonly By _textBox = By.CssSelector("[role='textbox']");
+        private readonly By _sendButton = By.CssSelector("[data-test-id='send']");
         public RUOpenedEmailPageObject() : base(By.CssSelector("[title='autotests24052023@gmail.com']"))
         {
         }
@@ -32,6 +36,16 @@ namespace MailAuthorizationTests.MailRuPageObjects
         public void DeleteEmail ()
         {
             WebDriver.FindElement(_deleteEmailButton).Click();
+        }
+
+        public void SendInResponceNewUserName ()
+        {
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _responceButton);
+            WebDriver.FindElement(_responceButton).Click();
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _textBox);
+            WebDriver.FindElement(_textBox).SendKeys(GmailTestConfig.NewGmailPseudonim);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _sendButton);
+            WebDriver.FindElement (_sendButton).Click();
         }
     }
 }

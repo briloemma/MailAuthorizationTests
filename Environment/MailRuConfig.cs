@@ -4,7 +4,7 @@ namespace MailAuthorizationTests.Environment
 {
     public class MailRuConfig
     {
-        private const string _jsonFileName = "D:\\С#\\Epam\\MailAuthorizationTests\\Users\\MailRuLogin";
+        private const string _jsonFileName = "D:\\С#\\Epam\\MailAuthorizationTests\\Users\\MailRuLogin.json";
         public static string MailRuHostPrefix => settings.MailRuHostPrefix;
         public static string MailRuLogin => settings.MailRuLogin;
         public static string MailRuPassword => settings.MailRuPassword;

@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,23 +27,18 @@ namespace MailAuthorizationTests.Tests
         }
 
         [Test]
-        public void BasicLoginTestIncorrectEmailInput()
+        [TestCaseSource(nameof(UsersList))]
+        public void BasicLoginTestIncorrectEmailInput(User user)
         {
-
-            MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
-            Assert.That(authorizationPageObject.Login(UserCreator.GetGmailUserWrongLogin()), Is.EqualTo(null));
+            authorizationPageObject.SendUserEmail(user);
             Assert.IsTrue(authorizationPageObject.GetEmailNotFoundMessage());
         }
 
-        [Test]
-        public void BasicLoginTestEmptyInput()
+        private static IEnumerable<TestCaseData> UsersList()
         {
-            MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
-            AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
-            Assert.That(authorizationPageObject.Login(UserCreator.GetEmptyGmailUser()), Is.EqualTo(null));
-            Assert.IsTrue(authorizationPageObject.GetEmailNotFoundMessage());
+            yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin());
+            yield return new TestCaseData(UserCreator.GetEmptyGmailUser());
         }
-
     }
 }

@@ -11,12 +11,12 @@ using WebDriverManager.Helpers;
 
 namespace MailAuthorizationTests.Environment
 {
-    public sealed class Webdriver
+    public sealed class WebDriverFactory
     {
-        private static IWebDriver webDriver;
-        public static IWebDriver GetInstance()
+        private static WebDriver? webDriver;
+        public static WebDriver GetInstance()
         {
-            if (webDriver == null)
+            if (webDriver?.SessionId == null)
             {
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
                 webDriver = new ChromeDriver();

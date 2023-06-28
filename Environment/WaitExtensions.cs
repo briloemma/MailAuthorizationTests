@@ -8,22 +8,18 @@ using System.Threading.Tasks;
 
 namespace MailAuthorizationTests.Environment
 {
-    public static class WaitUntil
+    public static class WaitExtensions
     {
-        public static IWebElement GetElementIfDisplayed(IWebDriver webDriver, By locator, string errorMessage = "Element is not found")
+        public static bool WaitForElementIsDisplayed(IWebDriver webDriver, By locator, string errorMessage = "Element is not found")
         {
             WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(10));
             try
             {
-                return wait.Until(driver =>
+                return wait.Until(webDriver =>
                 {
-                    IWebElement webElement;
-                    webElement = driver.FindElement(locator);
-                    if (!webElement.Displayed)
-                    {
-                        throw new Exception();
-                    }
-                    return webElement;
+
+                    IWebElement webElement = webDriver.FindElement(locator);
+                    return webElement.Displayed;
                 });
             }
             catch

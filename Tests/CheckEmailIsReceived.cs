@@ -16,8 +16,9 @@ namespace MailAuthorizationTests.Tests
         {
             LogInAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
-            LogInReceiverInbox();
-            Assert.IsTrue(CheckEmailIsReceived());
+            Assert.IsTrue(LogInReceiverInbox().CheckEmailIsReceived());
+            RUMainMenuPageObject rUMainMenuPageObject = new RUMainMenuPageObject();
+            rUMainMenuPageObject.CheckInbox().DeleteEmail();
         }
 
         [Test]
@@ -27,6 +28,8 @@ namespace MailAuthorizationTests.Tests
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             string actual = LogInReceiverInboxdOpenEmailCheckSender();
             Assert.That(actual, Is.EqualTo(GmailTestConfig.GmailUserName));
+            RUOpenedEmailPageObject rUOpenedEmailPageObject = new RUOpenedEmailPageObject();
+            rUOpenedEmailPageObject.DeleteEmail();
         }
 
         [Test]
@@ -35,7 +38,9 @@ namespace MailAuthorizationTests.Tests
             string expected = LogInAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             string actual = LogInReceiverInboxdOpenEmailCheckEmailBody();
-            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That (actual, Is.EqualTo(expected));
+            RUOpenedEmailPageObject rUOpenedEmailPageObject = new RUOpenedEmailPageObject();
+            rUOpenedEmailPageObject.SendInResponceNewUserName();
         }
 
         [Test]
@@ -46,7 +51,7 @@ namespace MailAuthorizationTests.Tests
             OpenedEmailPageObject openedEmailPage = new OpenedEmailPageObject();
             AccountSettingsPageObject accountSettingsPage = new AccountSettingsPageObject();
             string newUserName = authorizationPageObject
-                .Login(UserCreator.GetGmailUserWrongLogin())
+                .Login(UserCreator.GetGmailUser())
                 .OpenNewEmail()
                 .GetNewUserName();
             mainMenuPageObject.GoToAccountSettings().ChangeAccountPseudonim(newUserName);
@@ -58,15 +63,15 @@ namespace MailAuthorizationTests.Tests
             MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
             authorizationPageObject
-                .Login(UserCreator.GetGmailUserWrongLogin())
+                .Login(UserCreator.GetGmailUser())
                 .SendEmail(GmailTestConfig.SendEmailToAddress, GenerateStringForTests.GenerateRandomString(35));
             return GenerateStringForTests.GenerateRandomString(35);
         }
 
-        private void LogInReceiverInbox ()
+        private RUMainMenuPageObject LogInReceiverInbox ()
         {
             RUAuthorizationPageObject ruAuthorization = new RUAuthorizationPageObject();
-            ruAuthorization.Authorize(UserCreator.GetMailRuUser());
+            return ruAuthorization.Authorize(UserCreator.GetMailRuUser());
         }
 
         private string LogInReceiverInboxdOpenEmailCheckSender()
@@ -90,19 +95,7 @@ namespace MailAuthorizationTests.Tests
                 .GetEmailBody();
             return emailBody;
         }
-        private bool CheckEmailIsReceived ()
-        {
-            var _inboxButton = By.XPath("//a[contains(@title, '1 непрочитанное')]");
-                try
-                {
-                    BasePageObject.WebDriver.FindElement(_inboxButton);
-                    return true;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-        }
+        
 
        
     }

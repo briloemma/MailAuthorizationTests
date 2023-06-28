@@ -22,35 +22,30 @@ namespace MailAuthorizationTests.PageObjects
         {
         }
 
-        public MainMenuPageObject Login (User user)
+        public MainMenuPageObject Login(User user)
         {
-            try
-            {
-                WaitUntil.GetElementIfDisplayed(WebDriver, _emailInput);
-                WebDriver.FindElement(_emailInput).SendKeys(user.GetLogin());
-                WebDriver.FindElement(_proceedButton).Click();
-                WaitUntil.GetElementIfDisplayed(WebDriver, _passwordInput);
-                WebDriver.FindElement(_passwordInput).SendKeys(user.GetPassword());
-                WaitUntil.GetElementIfDisplayed(WebDriver, _proceedButton);
-                WebDriver.FindElement(_proceedButton).Click();
-                WaitUntil.GetElementIfDisplayed(WebDriver, _mainMenuButton);
-                logger.Info("Login perfomed");
-                return new MainMenuPageObject();
-            }
-            catch (NotFoundException ex) 
-            {
-                Console.WriteLine("Couldn't return MainMenuPageObject");
-                logger.Error("Couldn't perfrom login");
-            }
-            return null;
+            SendUserEmail(user);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _passwordInput);
+            WebDriver.FindElement(_passwordInput).SendKeys(user.GetPassword());
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _proceedButton);
+            WebDriver.FindElement(_proceedButton).Click();
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _mainMenuButton);
+            logger.Info("Login perfomed");
+            return new MainMenuPageObject();
         }
 
-        public bool GetEmailNotFoundMessage ()
+        public AuthorizationPageObject SendUserEmail(User user)
         {
-            if (WebDriver.FindElement(_emailNotFoundMessage).Displayed)
-            return true;
-            else
-            return false;
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailInput);
+            WebDriver.FindElement(_emailInput).SendKeys(user.GetLogin());
+            WebDriver.FindElement(_proceedButton).Click();
+            return new AuthorizationPageObject();
+        }
+
+        public bool GetEmailNotFoundMessage()
+        {
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
+            return WebDriver.FindElement(_emailNotFoundMessage).Displayed;
         }
     }
 }

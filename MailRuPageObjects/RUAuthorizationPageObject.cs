@@ -10,9 +10,10 @@ namespace MailAuthorizationTests.MailRuPageObjects
     {
         private readonly By _authorizationButton = By.CssSelector("[data-testid='enter-mail-primary']");
         private readonly By _accountNameField = By.CssSelector("[autocomplete='username']");
-        private readonly By _enterPasswordButton = By.CssSelector("next-button");
+        private readonly By _enterPasswordButton = By.CssSelector("[data-test-id='next-button']");
         private readonly By _passwordField = By.CssSelector("[name='password']");
-        private readonly By _signInButton = By.CssSelector("submit-button-wrap");
+        private readonly By _signInButton = By.CssSelector("[class='submit-button-wrap']");
+        private readonly IWebElement iframe = WebDriver.FindElement(By.CssSelector("[frameborder='0']"));
         Logger logger = LogManager.GetCurrentClassLogger();
 
         public RUAuthorizationPageObject() : base(By.CssSelector("[href='//mail.ru']"))
@@ -22,6 +23,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
         public RUMainMenuPageObject Authorize (User user)
         {
             WebDriver.FindElement(_authorizationButton).Click();
+            WebDriver.SwitchTo().Frame(iframe);
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _accountNameField);
             WebDriver.FindElement(_accountNameField).SendKeys(user.GetLogin());
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _enterPasswordButton);

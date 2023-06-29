@@ -17,8 +17,6 @@ namespace MailAuthorizationTests.Tests
             LogInAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             Assert.IsTrue(LogInReceiverInbox().CheckEmailIsReceived());
-            RUMainMenuPageObject rUMainMenuPageObject = new RUMainMenuPageObject();
-            rUMainMenuPageObject.CheckInbox().DeleteEmail();
         }
 
         [Test]
@@ -60,12 +58,12 @@ namespace MailAuthorizationTests.Tests
 
         private string LogInAndSendEmail ()
         {
-            MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
+            string message = GenerateStringForTests.GenerateRandomString(35);
             authorizationPageObject
                 .Login(UserCreator.GetGmailUser())
-                .SendEmail(GmailTestConfig.SendEmailToAddress, GenerateStringForTests.GenerateRandomString(35));
-            return GenerateStringForTests.GenerateRandomString(35);
+                .SendEmail(GmailTestConfig.SendEmailToAddress, message);
+            return message;
         }
 
         private RUMainMenuPageObject LogInReceiverInbox ()

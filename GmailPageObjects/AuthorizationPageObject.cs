@@ -18,6 +18,7 @@ namespace MailAuthorizationTests.PageObjects
         private readonly By _emailNotFoundMessage = By.XPath("//div[contains(@class, 'o6')]");
         private readonly By _mainMenuButton = By.XPath("//img[@role='presentation']");
         Logger logger = LogManager.GetCurrentClassLogger();
+
         public AuthorizationPageObject() : base(By.XPath("//span[text()='Выберите аккаунт']"))
         {
         }
@@ -25,12 +26,10 @@ namespace MailAuthorizationTests.PageObjects
         public MainMenuPageObject Login(User user)
         {
             SendUserEmail(user);
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _passwordInput);
-            WebDriver.FindElement(_passwordInput).SendKeys(user.GetPassword());
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _proceedButton);
-            WebDriver.FindElement(_proceedButton).Click();
+            SendUserPassword(user);
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _mainMenuButton);
             logger.Info("Login perfomed");
+            logger.Error("Couldn't perform login");
             return new MainMenuPageObject();
         }
 
@@ -46,6 +45,21 @@ namespace MailAuthorizationTests.PageObjects
         {
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
             return WebDriver.FindElement(_emailNotFoundMessage).Displayed;
+        }
+
+        public string GetEmailNotFoundTextMessage()
+        {
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
+            return WebDriver.FindElement(_emailNotFoundMessage).Text;
+        }
+
+        private AuthorizationPageObject SendUserPassword(User user)
+        {
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _passwordInput);
+            WebDriver.FindElement(_passwordInput).SendKeys(user.GetPassword());
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _proceedButton);
+            WebDriver.FindElement(_proceedButton).Click();
+            return new AuthorizationPageObject();
         }
     }
 }

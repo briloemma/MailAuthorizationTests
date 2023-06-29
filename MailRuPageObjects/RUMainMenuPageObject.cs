@@ -1,4 +1,5 @@
-﻿using MailAuthorizationTests.PageObjects;
+﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.PageObjects;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
     {
         private readonly By _newEmailLine = By.XPath("//span[contains(@title, 'Auto Tests')]");
         private readonly By _readEmailButton = By.CssSelector("[title='Пометить прочитанным']");
+        private readonly By _inboxButton = By.XPath("//a[contains(@title, '1 непрочитанное')]");
 
         public RUMainMenuPageObject() : base(By.CssSelector("[href='/inbox/?']"))
         {
@@ -25,17 +27,13 @@ namespace MailAuthorizationTests.MailRuPageObjects
 
         public bool CheckEmailIsReceived()
         {
-            var _inboxButton = By.XPath("//a[contains(@title, '1 непрочитанное')]");
-            try
+            if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _inboxButton))
             {
-                WebDriver.FindElement(_inboxButton);
                 WebDriver.FindElement(_readEmailButton).Click();
                 return true;
             }
-            catch (NoSuchElementException)
-            {
+            else
                 return false;
-            }
         }
     }
 }

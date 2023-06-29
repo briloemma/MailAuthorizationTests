@@ -5,6 +5,8 @@
   "GmailWrongLogin": "autotests2405202@gmail.com",
   "GmailHostPrefix": "https://mail.google.com/",
   "SendEmailToAddress": "autotests24052023@mail.ru",
-  "NewGmailPseudonim": "Pseudonim"
+  "NewGmailPseudonim": "Pseudonim",
+  "GmailNotFoundError": "Couldn’t find your Google Account",
+  "EnterGmailError": "Enter an email or phone number"
 
 }

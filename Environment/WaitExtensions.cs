@@ -22,9 +22,9 @@ namespace MailAuthorizationTests.Environment
                     return webElement.Displayed;
                 });
             }
-            catch
+            catch(Exception ex)
             {
-                throw new NotFoundException(errorMessage);
+                throw new NotFoundException($"{locator} {errorMessage}" + "\n"+ $"{ex.Message}");
             }
         }
     }

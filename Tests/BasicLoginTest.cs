@@ -28,17 +28,19 @@ namespace MailAuthorizationTests.Tests
 
         [Test]
         [TestCaseSource(nameof(UsersList))]
-        public void BasicLoginTestIncorrectEmailInput(User user)
+        public void BasicLoginTestIncorrectEmailInput(User user, string errorMessage)
         {
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
             authorizationPageObject.SendUserEmail(user);
             Assert.IsTrue(authorizationPageObject.GetEmailNotFoundMessage());
+            Assert.That(authorizationPageObject.GetEmailNotFoundTextMessage(), Is.EqualTo(errorMessage));
         }
 
         private static IEnumerable<TestCaseData> UsersList()
         {
-            yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin());
-            yield return new TestCaseData(UserCreator.GetEmptyGmailUser());
+            yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin(), GmailTestConfig.GmailNotFoundError);
+            yield return new TestCaseData(UserCreator.GetEmptyGmailUser(), GmailTestConfig.EnterGmailError);
         }
+
     }
 }

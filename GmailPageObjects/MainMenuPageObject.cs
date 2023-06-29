@@ -36,8 +36,7 @@ namespace MailAuthorizationTests.PageObjects
             WebDriver.FindElement(_emailTextField).SendKeys(emailText);
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _sendButton);
             WebDriver.FindElement(_sendButton).Click();
-            logger.Error($"Couldn't send an email to {sendToEmail}");
-            return this;
+            return new MainMenuPageObject();
         }
 
         public OpenedEmailPageObject OpenNewEmail()

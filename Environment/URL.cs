@@ -11,8 +11,7 @@ namespace MailAuthorizationTests.Environment
         public static void GoToURL (string url)
         {
             WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
-            WebDriverFactory.GetInstance().Navigate().GoToUrl(url); ;
-            WebDriverFactory.GetInstance().Manage().Window.Maximize();
+            WebDriverFactory.GetInstance().Navigate().GoToUrl(url);
         }
     }
 }

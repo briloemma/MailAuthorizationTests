@@ -17,6 +17,8 @@ namespace MailAuthorizationTests.Environment
         public static string GmailUserName => settings.GmailUserName;
         public static string SendEmailToAddress => settings.SendEmailToAddress;
         public static string NewGmailPseudonim => settings.NewGmailPseudonim;
+        public static string GmailNotFoundError => settings.GmailNotFoundError;
+        public static string EnterGmailError => settings.EnterGmailError;
 
         private static readonly TestSettings settings;
         static GmailTestConfig()

@@ -29,6 +29,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
         {
             if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _inboxButton))
             {
+                WaitExtensions.WaitForElementIsDisplayed(WebDriver, _readEmailButton);
                 WebDriver.FindElement(_readEmailButton).Click();
                 return true;
             }

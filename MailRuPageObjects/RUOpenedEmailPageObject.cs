@@ -11,19 +11,21 @@ namespace MailAuthorizationTests.MailRuPageObjects
         private readonly By _responceButton = By.XPath("//div[contains(@class, 'element_reply')]");
         private readonly By _textBox = By.CssSelector("[role='textbox']");
         private readonly By _sendButton = By.CssSelector("[data-test-id='send']");
+        private readonly By _senderName = By.XPath("//span[contains(@title, 'autotests24052023@gmail.com')]");
+        private readonly By _emailBody = By.CssSelector("[class='letter__body']");
         public RUOpenedEmailPageObject() : base(By.CssSelector("[title='autotests24052023@gmail.com']"))
         {
         }
 
         public string GetSender ()
         {
-            string sender = WebDriver.FindElement(By.CssSelector("//span[contains(@title, 'autotests24052023@gmail.com')]")).Text;
+            string sender = WebDriver.FindElement(_senderName).Text;
             return sender;
         }
 
         public string GetEmailBody ()
         {
-            string emailBody = WebDriver.FindElement(By.CssSelector("[class='letter__body']")).Text;
+            string emailBody = WebDriver.FindElement(_emailBody).Text;
             return emailBody;
         }
 

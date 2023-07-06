@@ -13,14 +13,15 @@ namespace MailAuthorizationTests.PageObjects
     {
 
         private readonly By _writeNewEmailButton = By.CssSelector("[style='user-select: none']");
-        private readonly By _sendToEmailField = By.CssSelector("[role = 'combobox']");
-        private readonly By _emailTextField = By.CssSelector("[role = 'textbox']");
+        private readonly By _emailInput = By.CssSelector("[aria-autocomplete='list']");
+        private readonly By _emailTextField = By.CssSelector("[role='textbox']");
         private readonly By _sendButton = By.XPath("//div[contains(@data-tooltip, 'Enter')]");
         private By OpenEmailLine(string email) => By.CssSelector($"[email={email}]");
+        private By _emailLine = By.CssSelector("[peoplekit-id='kE8AEc']");
+        private By _contactButton = By.CssSelector("[id=':ba']");
         private readonly By _accountButton = By.CssSelector("[class='gb_k gbii']");
         private readonly By _goToAccountSettingsButton = By.XPath("//a[contains(@href, 'myaccount.google.com/?utm')]");
         private readonly By _messageSuccessfullySent = By.XPath("//span[contains(text(),'Сообщение отправлено')]");
-        private readonly By _errorMessage = By.CssSelector("[id=':vk.contentEl']");
         private readonly By _errorOkButton = By.CssSelector("[name='ok']");
         NLog.Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -36,22 +37,24 @@ namespace MailAuthorizationTests.PageObjects
             GetEmailAddress(emailAddress);
             GetEmailText(emailText);
             SendNewEmail();
-            if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _messageSuccessfullySent))
-                return new MainMenuPageObject();
-            else if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _errorMessage))
+            if (EmailSentSuccessfully())
+            return new MainMenuPageObject();
+            else
             {
                 WebDriver.FindElement(_errorOkButton).Click();
                 GetEmailAddress(emailAddress);
                 SendNewEmail();
                 return new MainMenuPageObject();
             }
-            else
-                return null;
         }
 
+        public bool EmailSentSuccessfully ()
+        {
+            return WebDriver.FindElement(_messageSuccessfullySent).Displayed;
+        }
         public OpenedEmailPageObject OpenNewEmail()
         {
-            WebDriver.FindElements(OpenEmailLine("autotests24052023@mail.ru")).First().Click();
+            WebDriver.FindElements(OpenEmailLine(GmailTestConfig.SendEmailToAddress)).First().Click();
             logger.Error("Couldn't open an email");
             return new OpenedEmailPageObject();
         }
@@ -72,8 +75,12 @@ namespace MailAuthorizationTests.PageObjects
 
         private MainMenuPageObject GetEmailAddress(string emailAddress)
         {
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _sendToEmailField);
-            WebDriver.FindElement(_sendToEmailField).SendKeys(emailAddress);
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailInput);
+            WebDriver.FindElement(_emailInput).SendKeys(emailAddress);
+            //WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailLine);
+           /* WebDriver.FindElement(_emailLine).Click();
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _contactButton);
+            WebDriver.FindElement(_contactButton).Click();*/
             return new MainMenuPageObject();
         }
 
@@ -88,6 +95,7 @@ namespace MailAuthorizationTests.PageObjects
         {
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _sendButton);
             WebDriver.FindElement(_sendButton).Click();
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _messageSuccessfullySent);
             return new MainMenuPageObject();
         }
 

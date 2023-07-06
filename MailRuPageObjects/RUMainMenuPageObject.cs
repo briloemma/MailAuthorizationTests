@@ -13,7 +13,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
     {
         private readonly By _newEmailLine = By.XPath("//span[contains(@title, 'Auto Tests')]");
         private readonly By _readEmailButton = By.CssSelector("[title='Пометить прочитанным']");
-        private readonly By _inboxButton = By.XPath("//a[contains(@title, '1 непрочитанное')]");
+        private readonly By _inboxButton = By.XPath("//a[contains(@title, 'непрочитанн')]");
 
         public RUMainMenuPageObject() : base(By.CssSelector("[href='/inbox/?']"))
         {
@@ -21,11 +21,15 @@ namespace MailAuthorizationTests.MailRuPageObjects
 
         public RUOpenedEmailPageObject CheckInbox()
         {
-            WebDriver.FindElements(_newEmailLine).First().Click();
+            if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _inboxButton))
+            {
+                WebDriver.FindElements(_newEmailLine).First().Click();
+                return new RUOpenedEmailPageObject();
+            }
             return new RUOpenedEmailPageObject();
         }
 
-        public bool CheckEmailIsReceived()
+        public bool ReadReceivedEmail()
         {
             if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _inboxButton))
             {
@@ -33,8 +37,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
                 WebDriver.FindElement(_readEmailButton).Click();
                 return true;
             }
-            else
-                return false;
+            return false;
         }
     }
 }

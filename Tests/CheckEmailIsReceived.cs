@@ -16,7 +16,7 @@ namespace MailAuthorizationTests.Tests
         {
             LogInAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
-            Assert.IsTrue(LogInReceiverInbox().CheckEmailIsReceived());
+            Assert.IsTrue(LogInReceiverInbox().ReadReceivedEmail());
         }
 
         [Test]
@@ -26,8 +26,6 @@ namespace MailAuthorizationTests.Tests
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             string actual = LogInReceiverInboxdOpenEmailCheckSender();
             Assert.That(actual, Is.EqualTo(GmailTestConfig.GmailUserName));
-            RUOpenedEmailPageObject rUOpenedEmailPageObject = new RUOpenedEmailPageObject();
-            rUOpenedEmailPageObject.DeleteEmail();
         }
 
         [Test]

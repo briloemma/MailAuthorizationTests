@@ -17,7 +17,6 @@ namespace MailAuthorizationTests.Environment
             {
                 return wait.Until(webDriver =>
                 {
-
                     IWebElement webElement = webDriver.FindElement(locator);
                     return webElement.Displayed;
                 });

@@ -13,16 +13,14 @@ namespace MailAuthorizationTests.PageObjects
     {
 
         private readonly By _writeNewEmailButton = By.CssSelector("[style='user-select: none']");
+        private readonly By _newMessageTab = By.CssSelector("[aria-label='Новое сообщение']");
         private readonly By _emailInput = By.CssSelector("[aria-autocomplete='list']");
         private readonly By _emailTextField = By.CssSelector("[role='textbox']");
         private readonly By _sendButton = By.XPath("//div[contains(@data-tooltip, 'Enter')]");
         private By OpenEmailLine(string email) => By.CssSelector($"[email={email}]");
-        private By _emailLine = By.CssSelector("[peoplekit-id='kE8AEc']");
-        private By _contactButton = By.CssSelector("[id=':ba']");
         private readonly By _accountButton = By.CssSelector("[class='gb_k gbii']");
         private readonly By _goToAccountSettingsButton = By.XPath("//a[contains(@href, 'myaccount.google.com/?utm')]");
         private readonly By _messageSuccessfullySent = By.XPath("//span[contains(text(),'Сообщение отправлено')]");
-        private readonly By _errorOkButton = By.CssSelector("[name='ok']");
         NLog.Logger logger = LogManager.GetCurrentClassLogger();
 
         public MainMenuPageObject() : base(By.XPath("//img[@role='presentation']"))
@@ -37,15 +35,8 @@ namespace MailAuthorizationTests.PageObjects
             GetEmailAddress(emailAddress);
             GetEmailText(emailText);
             SendNewEmail();
-            if (EmailSentSuccessfully())
+            EmailSentSuccessfully();
             return new MainMenuPageObject();
-            else
-            {
-                WebDriver.FindElement(_errorOkButton).Click();
-                GetEmailAddress(emailAddress);
-                SendNewEmail();
-                return new MainMenuPageObject();
-            }
         }
 
         public bool EmailSentSuccessfully ()
@@ -75,12 +66,9 @@ namespace MailAuthorizationTests.PageObjects
 
         private MainMenuPageObject GetEmailAddress(string emailAddress)
         {
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _newMessageTab);
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailInput);
             WebDriver.FindElement(_emailInput).SendKeys(emailAddress);
-            //WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailLine);
-           /* WebDriver.FindElement(_emailLine).Click();
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _contactButton);
-            WebDriver.FindElement(_contactButton).Click();*/
             return new MainMenuPageObject();
         }
 

@@ -26,6 +26,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
 
         public string GetEmailBody ()
         {
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailBody);
             string emailBody = WebDriver.FindElement(_emailBody).Text;
             return emailBody;
         }

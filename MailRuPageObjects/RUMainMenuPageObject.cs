@@ -22,12 +22,9 @@ namespace MailAuthorizationTests.MailRuPageObjects
 
         public RUOpenedEmailPageObject CheckInbox()
         {
-            if (WaitExtensions.WaitForElementIsDisplayed(WebDriver, _inboxButton))
-            {
+                WaitExtensions.WaitForElementIsDisplayed(WebDriver, _newEmailLine);
                 WebDriver.FindElements(_newEmailLine).First().Click();
                 return new RUOpenedEmailPageObject();
-            }
-            return new RUOpenedEmailPageObject();
         }
 
         public bool ReadReceivedEmail()

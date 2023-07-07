@@ -35,16 +35,17 @@ namespace MailAuthorizationTests.Tests
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             string actual = LogInReceiverInboxdOpenEmailCheckEmailBody();
             Assert.That (actual, Is.EqualTo(expected));
-            RUOpenedEmailPageObject rUOpenedEmailPageObject = new RUOpenedEmailPageObject();
-            rUOpenedEmailPageObject.SendInResponceNewUserName();
         }
 
         [Test]
         public void ChangeGmailAccountName()
         {
+            LogInAndSendEmail();
+            URL.GoToURL(MailRuConfig.MailRuHostPrefix);
+            LogInReceiverInbox().CheckInbox().SendInResponceNewUserName();
+            URL.GoToURL(GmailTestConfig.GmailHostPrefix);
             MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
-            OpenedEmailPageObject openedEmailPage = new OpenedEmailPageObject();
             AccountSettingsPageObject accountSettingsPage = new AccountSettingsPageObject();
             string newUserName = authorizationPageObject
                 .Login(UserCreator.GetGmailUser())
@@ -91,8 +92,6 @@ namespace MailAuthorizationTests.Tests
                 .GetEmailBody();
             return emailBody;
         }
-        
 
-       
     }
 }

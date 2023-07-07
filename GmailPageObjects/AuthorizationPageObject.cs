@@ -37,6 +37,7 @@ namespace MailAuthorizationTests.PageObjects
         {
             WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailInput);
             WebDriver.FindElement(_emailInput).SendKeys(user.GetLogin());
+            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _proceedButton);
             WebDriver.FindElement(_proceedButton).Click();
             return new AuthorizationPageObject();
         }

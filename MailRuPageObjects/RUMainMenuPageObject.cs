@@ -1,39 +1,43 @@
 ﻿using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.PageObjects;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailAuthorizationTests.MailRuPageObjects
 {
     public class RUMainMenuPageObject : BasePageObject
     {
-        private readonly By _newEmailLine = By.XPath("//span[contains(@title, 'Auto Tests')]");
+        private By EmailLineByUser(string gmail) => By.XPath($"//span[contains(@title, '{gmail}')]");
         private readonly By _readEmailButton = By.CssSelector("[title='Пометить прочитанным']");
-        private readonly By _unreadEmailButton = By.CssSelector("[title='Пометить непрочитанным']");
-        private readonly By _inboxButton = By.XPath("//a[contains(@title, 'непрочитанн')]");
+        private By _emailLineByRow = By.CssSelector("a[data-draggable-id]");
+        private By _emailLineByContent = By.CssSelector("span[class='ll-sp__normal']");
 
         public RUMainMenuPageObject() : base(By.CssSelector("[href='/inbox/?']"))
         {
         }
 
-        public RUOpenedEmailPageObject CheckInbox()
+        public bool IsEmailReceivedAndNotRead(string receivedEmailBody)
         {
-                WaitExtensions.WaitForElementIsDisplayed(WebDriver, _newEmailLine);
-                WebDriver.FindElements(_newEmailLine).First().Click();
-                return new RUOpenedEmailPageObject();
+            return IsEmailReceived(receivedEmailBody) && IsEmailNotRead();
+        }
+        public RUOpenedEmailPageObject CheckInbox(string receivedEmailBody)
+        {
+            if (IsEmailReceivedAndNotRead(receivedEmailBody))
+                WaitUtil.WaitForElementIsDisplayed(WebDriver, EmailLineByUser(GmailTestConfig.GmailUserName));
+                WebDriver.FindElements(EmailLineByUser(GmailTestConfig.GmailUserName)).First().Click();
+            return new RUOpenedEmailPageObject();
         }
 
-        public bool ReadReceivedEmail()
+        public bool IsEmailReceived(string receivedEmailBody)
         {
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _inboxButton);
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _readEmailButton);
-            WebDriver.FindElement(_readEmailButton).Click();
-            WaitExtensions.WaitForElementIsDisplayed( WebDriver,_unreadEmailButton);
-            return true;
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailLineByRow);
+            return WebDriver.FindElements(_emailLineByRow).First().FindElement(_emailLineByContent).Text.Contains(receivedEmailBody) &&
+            WebDriver.FindElements(_emailLineByRow).First().FindElement(EmailLineByUser(GmailTestConfig.GmailLogin)).Displayed;
+        }
+
+        private bool IsEmailNotRead()
+        {
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _readEmailButton);
+            return WebDriver.FindElements(_emailLineByRow).First().FindElement(_readEmailButton).Displayed;
         }
     }
 }

@@ -1,6 +1,5 @@
 using MailAuthorizationTests.Environment;
 using NUnit.Framework.Interfaces;
-using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.Tests
 {

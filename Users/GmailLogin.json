@@ -1,9 +1,9 @@
 {
   "GmailLogin": "autotests24052023@gmail.com",
   "GmailPassword": "Autotests!1",
-  "GmailUserName": "Auto Tests",
+  "GmailUserName": "Gmail Tests",
   "GmailWrongLogin": "autotests2405202@gmail.com",
-  "GmailHostPrefix": "https://mail.google.com/",
+  "GmailHostPrefix": "https://mail.google.com",
   "SendEmailToAddress": "autotests24052023@mail.ru",
   "NewGmailPseudonim": "Pseudonim",
   "GmailNotFoundError": "Couldn’t find your Google Account",

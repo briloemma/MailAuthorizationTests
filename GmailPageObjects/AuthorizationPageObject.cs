@@ -2,11 +2,6 @@
 using MailAuthorizationTests.Users;
 using NLog;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailAuthorizationTests.PageObjects
 {
@@ -27,38 +22,37 @@ namespace MailAuthorizationTests.PageObjects
         {
             SendUserEmail(user);
             SendUserPassword(user);
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _mainMenuButton);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _mainMenuButton);
             logger.Info("Login perfomed");
-            logger.Error("Couldn't perform login");
             return new MainMenuPageObject();
         }
 
         public AuthorizationPageObject SendUserEmail(User user)
         {
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailInput);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailInput);
             WebDriver.FindElement(_emailInput).SendKeys(user.GetLogin());
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _proceedButton);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _proceedButton);
             WebDriver.FindElement(_proceedButton).Click();
             return new AuthorizationPageObject();
         }
 
         public bool GetEmailNotFoundMessage()
         {
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
             return WebDriver.FindElement(_emailNotFoundMessage).Displayed;
         }
 
         public string GetEmailNotFoundTextMessage()
         {
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
             return WebDriver.FindElement(_emailNotFoundMessage).Text;
         }
 
         private AuthorizationPageObject SendUserPassword(User user)
         {
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _passwordInput);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _passwordInput);
             WebDriver.FindElement(_passwordInput).SendKeys(user.GetPassword());
-            WaitExtensions.WaitForElementIsDisplayed(WebDriver, _proceedButton);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _proceedButton);
             WebDriver.FindElement(_proceedButton).Click();
             return new AuthorizationPageObject();
         }

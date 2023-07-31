@@ -1,10 +1,5 @@
-﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
@@ -18,7 +13,7 @@ namespace MailAuthorizationTests.Environment
         {
             if (webDriver?.SessionId == null)
             {
-                new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+                new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
                 webDriver = new ChromeDriver();
             }
             return webDriver;

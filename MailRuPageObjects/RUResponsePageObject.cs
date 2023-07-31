@@ -1,26 +1,25 @@
-﻿using MailAuthorizationTests.PageObjects;
+﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.PageObjects;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailAuthorizationTests.MailRuPageObjects
 {
     public class RUResponsePageObject : BasePageObject
     {
-        private readonly By _emailBodyInput = By.CssSelector("[data-cke-eol]");
         private readonly By _sendButton = By.XPath("//span[text()='Отправить']");
-
+        private readonly By _cancelSendButton = By.CssSelector("[title = 'Отменить отправку']");
+        private readonly By _textBox = By.CssSelector("[role='textbox']");
         public RUResponsePageObject() : base(By.XPath("//div[contains(@class, 'contactsContainer')]"))
         {
         }
 
-        public RUOpenedEmailPageObject SendResponse (string emailBody)
+        public RUOpenedEmailPageObject SendResponse(string emailBody)
         {
-            WebDriver.FindElement(_emailBodyInput).SendKeys(emailBody);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _textBox);
+            WebDriver.FindElement(_textBox).SendKeys(emailBody);
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _sendButton);
             WebDriver.FindElement(_sendButton).Click();
+            WaitUtil.WaitForElementIsDisplayed(WebDriver, _cancelSendButton);
             return new RUOpenedEmailPageObject();
         }
 

@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace MailAuthorizationTests.Environment
 {
-    public static class GenerateStringForTests
+    public static class GenerateTestData
     {
+        private static readonly Random getrandom = new Random();
+
+        public static int GetRandomNumber()
+        {
+            return getrandom.Next(1, 1000);
+        }
         public static string GenerateRandomString(int size, bool lowerCase = true)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -25,5 +27,6 @@ namespace MailAuthorizationTests.Environment
 
             return stringBuilder.ToString();
         }
+
     }
 }

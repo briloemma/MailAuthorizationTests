@@ -1,22 +1,12 @@
 ﻿using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.Users;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailAuthorizationTests.Tests
 {
     [TestFixture]
     public class BasicLoginTest : BaseTest
     {
-        [TestOf("SmokeTest")]
         [Test]
         public void BasicLoginTestCorrectInput()
         {
@@ -27,7 +17,7 @@ namespace MailAuthorizationTests.Tests
         }
 
         [Test]
-        [TestCaseSource(nameof(UsersList))]
+        [TestCaseSource(nameof(UserList))]
         public void BasicLoginTestIncorrectEmailInput(User user, string errorMessage)
         {
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
@@ -36,7 +26,7 @@ namespace MailAuthorizationTests.Tests
             Assert.That(authorizationPageObject.GetEmailNotFoundTextMessage(), Is.EqualTo(errorMessage));
         }
 
-        private static IEnumerable<TestCaseData> UsersList()
+        private static IEnumerable<TestCaseData> UserList()
         {
             yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin(), GmailTestConfig.GmailNotFoundError);
             yield return new TestCaseData(UserCreator.GetEmptyGmailUser(), GmailTestConfig.EnterGmailError);

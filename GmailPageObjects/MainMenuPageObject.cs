@@ -41,7 +41,7 @@ namespace MailAuthorizationTests.PageObjects
         }
         public OpenedEmailPageObject OpenReceivedEmail()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, EmailLineByUser(GmailTestConfig.SendEmailToAddress));
+            WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(GmailTestConfig.SendEmailToAddress));
             WebDriver.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).First().Click();
             return new OpenedEmailPageObject();
         }
@@ -54,31 +54,31 @@ namespace MailAuthorizationTests.PageObjects
 
         private MainMenuPageObject WriteNewEmail()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _writeNewEmailButton);
+            WaitUtil.WaitForElementIsDisplayed(_writeNewEmailButton);
             WebDriver.FindElement(_writeNewEmailButton).Click();
             return new MainMenuPageObject();
         }
 
         private MainMenuPageObject GetEmailAddress(string emailAddress)
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _newMessageTab);
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailInput);
+            WaitUtil.WaitForElementIsDisplayed(_newMessageTab);
+            WaitUtil.WaitForElementIsDisplayed(_emailInput);
             WebDriver.FindElement(_emailInput).SendKeys(emailAddress);
             return new MainMenuPageObject();
         }
 
         private MainMenuPageObject GetEmailText(string emailText)
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailTextField);
+            WaitUtil.WaitForElementIsDisplayed(_emailTextField);
             WebDriver.FindElement(_emailTextField).SendKeys(emailText);
             return new MainMenuPageObject();
         }
 
         private MainMenuPageObject SendNewEmail()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _sendButton);
+            WaitUtil.WaitForElementIsDisplayed(_sendButton);
             WebDriver.FindElement(_sendButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _messageSuccessfullySent);
+            WaitUtil.WaitForElementIsDisplayed(_messageSuccessfullySent);
             return new MainMenuPageObject();
         }
     }

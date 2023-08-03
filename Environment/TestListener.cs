@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
+using System.Reflection;
 
 namespace MailAuthorizationTests.Environment
 {
@@ -12,7 +13,7 @@ namespace MailAuthorizationTests.Environment
             DateTime.Now.Year,
             DateTime.Now.Hour,
             DateTime.Now.Minute);
-
+        System.Diagnostics.StackTrace trace = new System.Diagnostics.StackTrace ();
         public void TestFailed()
         {
             TakeScreenShot();
@@ -44,7 +45,7 @@ namespace MailAuthorizationTests.Environment
             {
                 Screenshot TakeScreenshot = ((ITakesScreenshot)WebDriverFactory.GetInstance()).GetScreenshot();
 
-                TakeScreenshot.SaveAsFile($"{filePath}\\{GetType}{fileName}.png");
+                TakeScreenshot.SaveAsFile($"{filePath}\\{fileName}{this.GetType().Name}.png");
             }
             catch (Exception e)
             {

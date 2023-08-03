@@ -22,37 +22,37 @@ namespace MailAuthorizationTests.PageObjects
         {
             SendUserEmail(user);
             SendUserPassword(user);
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _mainMenuButton);
+            WaitUtil.WaitForElementIsDisplayed(_mainMenuButton);
             logger.Info("Login perfomed");
             return new MainMenuPageObject();
         }
 
         public AuthorizationPageObject SendUserEmail(User user)
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailInput);
+            WaitUtil.WaitForElementIsDisplayed(_emailInput);
             WebDriver.FindElement(_emailInput).SendKeys(user.GetLogin());
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _proceedButton);
+            WaitUtil.WaitForElementIsDisplayed(_proceedButton);
             WebDriver.FindElement(_proceedButton).Click();
             return new AuthorizationPageObject();
         }
 
         public bool GetEmailNotFoundMessage()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
+            WaitUtil.WaitForElementIsDisplayed(_emailNotFoundMessage);
             return WebDriver.FindElement(_emailNotFoundMessage).Displayed;
         }
 
         public string GetEmailNotFoundTextMessage()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailNotFoundMessage);
+            WaitUtil.WaitForElementIsDisplayed(_emailNotFoundMessage);
             return WebDriver.FindElement(_emailNotFoundMessage).Text;
         }
 
         private AuthorizationPageObject SendUserPassword(User user)
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _passwordInput);
+            WaitUtil.WaitForElementIsDisplayed(_passwordInput);
             WebDriver.FindElement(_passwordInput).SendKeys(user.GetPassword());
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _proceedButton);
+            WaitUtil.WaitForElementIsDisplayed(_proceedButton);
             WebDriver.FindElement(_proceedButton).Click();
             return new AuthorizationPageObject();
         }

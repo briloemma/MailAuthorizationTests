@@ -19,17 +19,17 @@ namespace MailAuthorizationTests.GmailPageObjects
 
         public string GetNewUserPseudonim()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _receivedEmailBody);
+            WaitUtil.WaitForElementIsDisplayed(_receivedEmailBody);
             return WebDriver.FindElement(_receivedEmailBody).Text;
         }
 
         public AccountSettingsPageObject GoToAccountSettings()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, accountButton(GmailTestConfig.GmailLogin));
+            WaitUtil.WaitForElementIsDisplayed(accountButton(GmailTestConfig.GmailLogin));
             WebDriver.FindElement(accountButton(GmailTestConfig.GmailLogin)).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _frame);
+            WaitUtil.WaitForElementIsDisplayed(_frame);
             WebDriver.SwitchTo().Frame(WebDriver.FindElement(_frame));
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _goToAccountSettingsButton);
+            WaitUtil.WaitForElementIsDisplayed(_goToAccountSettingsButton);
             WebDriver.FindElement(_goToAccountSettingsButton).Click();
             WebDriver.SwitchTo().Window(WebDriver.WindowHandles.Last());
             return new AccountSettingsPageObject();

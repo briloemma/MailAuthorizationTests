@@ -15,11 +15,11 @@ namespace MailAuthorizationTests.MailRuPageObjects
 
         public RUOpenedEmailPageObject SendResponse(string emailBody)
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _textBox);
+            WaitUtil.WaitForElementIsDisplayed(_textBox);
             WebDriver.FindElement(_textBox).SendKeys(emailBody);
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _sendButton);
+            WaitUtil.WaitForElementIsDisplayed(_sendButton);
             WebDriver.FindElement(_sendButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _cancelSendButton);
+            WaitUtil.WaitForElementIsDisplayed(_cancelSendButton);
             return new RUOpenedEmailPageObject();
         }
 

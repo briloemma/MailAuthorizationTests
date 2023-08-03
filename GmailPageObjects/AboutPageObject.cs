@@ -14,7 +14,7 @@ namespace MailAuthorizationTests.GmailPageObjects
 
         public AuthorizationPageObject ClickSignInButton()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _signInButton);
+            WaitUtil.WaitForElementIsDisplayed(_signInButton);
             WebDriver.FindElement(_signInButton).Click();
             return new AuthorizationPageObject();
         }

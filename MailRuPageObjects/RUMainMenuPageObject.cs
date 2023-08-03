@@ -22,21 +22,21 @@ namespace MailAuthorizationTests.MailRuPageObjects
         public RUOpenedEmailPageObject CheckInbox(string receivedEmailBody)
         {
             if (IsEmailReceivedAndNotRead(receivedEmailBody))
-                WaitUtil.WaitForElementIsDisplayed(WebDriver, EmailLineByUser(GmailTestConfig.GmailUserName));
+                WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(GmailTestConfig.GmailUserName));
                 WebDriver.FindElements(EmailLineByUser(GmailTestConfig.GmailUserName)).First().Click();
             return new RUOpenedEmailPageObject();
         }
 
         public bool IsEmailReceived(string receivedEmailBody)
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailLineByRow);
+            WaitUtil.WaitForElementIsDisplayed(_emailLineByRow);
             return WebDriver.FindElements(_emailLineByRow).First().FindElement(_emailLineByContent).Text.Contains(receivedEmailBody) &&
             WebDriver.FindElements(_emailLineByRow).First().FindElement(EmailLineByUser(GmailTestConfig.GmailLogin)).Displayed;
         }
 
         private bool IsEmailNotRead()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _readEmailButton);
+            WaitUtil.WaitForElementIsDisplayed(_readEmailButton);
             return WebDriver.FindElements(_emailLineByRow).First().FindElement(_readEmailButton).Displayed;
         }
     }

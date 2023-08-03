@@ -15,21 +15,21 @@ namespace MailAuthorizationTests.MailRuPageObjects
 
         public string GetSender()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, SenderName(GmailTestConfig.GmailLogin));
+            WaitUtil.WaitForElementIsDisplayed(SenderName(GmailTestConfig.GmailLogin));
             string sender = WebDriver.FindElement(SenderName(GmailTestConfig.GmailLogin)).Text;
             return sender;
         }
 
         public string GetEmailBody()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _emailBody);
+            WaitUtil.WaitForElementIsDisplayed(_emailBody);
             string emailBody = WebDriver.FindElement(_emailBody).Text;
             return emailBody;
         }
 
         public RUResponsePageObject OpenResponsePage()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _responseButton);
+            WaitUtil.WaitForElementIsDisplayed(_responseButton);
             WebDriver.FindElement(_responseButton).Click();
             return new RUResponsePageObject();
         }

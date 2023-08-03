@@ -23,15 +23,15 @@ namespace MailAuthorizationTests.MailRuPageObjects
         public RUMainMenuPageObject Authorize(User user)
         {
             WebDriver.FindElement(_authorizationButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, iframe);
+            WaitUtil.WaitForElementIsDisplayed(iframe);
             WebDriver.SwitchTo().Frame(WebDriver.FindElement(iframe));
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _accountNameField);
+            WaitUtil.WaitForElementIsDisplayed(_accountNameField);
             WebDriver.FindElement(_accountNameField).SendKeys(user.GetLogin());
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _enterPasswordButton);
+            WaitUtil.WaitForElementIsDisplayed(_enterPasswordButton);
             WebDriver.FindElement(_enterPasswordButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _passwordField);
+            WaitUtil.WaitForElementIsDisplayed(_passwordField);
             WebDriver.FindElement(_passwordField).SendKeys(user.GetPassword());
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _signInButton);
+            WaitUtil.WaitForElementIsDisplayed(_signInButton);
             WebDriver.FindElement(_signInButton).Click();
             logger.Info("Login perfomed");
             return new RUMainMenuPageObject();

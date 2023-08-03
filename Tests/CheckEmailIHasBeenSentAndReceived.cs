@@ -19,7 +19,7 @@ namespace MailAuthorizationTests.Tests
             if (IsAlertPresent.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(WebDriverFactory.GetInstance(), sentMessage);
+            WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             Assert.IsTrue(rUMainMenu.IsEmailReceivedAndNotRead(sentMessage));
         }
 
@@ -31,7 +31,7 @@ namespace MailAuthorizationTests.Tests
             if (IsAlertPresent.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(WebDriverFactory.GetInstance(), sentMessage);
+            WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             string actual = rUMainMenu.CheckInbox(sentMessage).GetSender();
             Assert.That(actual, Is.EqualTo(GmailTestConfig.GmailUserName));
         }
@@ -44,7 +44,7 @@ namespace MailAuthorizationTests.Tests
             if (IsAlertPresent.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(WebDriverFactory.GetInstance(), expected);
+            WaitUtil.WaitForEmailInMailRuInbox(expected);
             string actual = rUMainMenu.CheckInbox(expected).GetEmailBody();
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -63,7 +63,7 @@ namespace MailAuthorizationTests.Tests
             OpenedEmailPageObject openedEmailPageObject = new OpenedEmailPageObject();
             AccountSettingsPageObject accountSettingsPageObject = new AccountSettingsPageObject();
             MainMenuPageObject mainMenuPageObject =  aboutPageObject.ClickSignInButton().Login(UserCreator.GetGmailUser());
-            WaitUtil.WaitForEmailInGMailInbox(WebDriverFactory.GetInstance(), expectedPseudonim);
+            WaitUtil.WaitForEmailInGMailInbox(expectedPseudonim);
 
             string newPseudonim = mainMenuPageObject.OpenReceivedEmail().GetNewUserPseudonim();
             openedEmailPageObject.GoToAccountSettings().ChangeAccountPseudonim(newPseudonim);

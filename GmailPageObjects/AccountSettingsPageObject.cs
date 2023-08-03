@@ -14,6 +14,7 @@ namespace MailAuthorizationTests.GmailPageObjects
         private readonly By _pseudonim = By.CssSelector("c-wiz>div:nth-of-type(2)>div>div>div:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)");
         private readonly By _deletePseudonimButton = By.XPath("//button//span[contains(text(),\"Удалить\")]");
         private readonly By _confirmDeletePseudonumBtn = By.XPath("//button[2]//span[contains(text(),\"Удалить\")]");
+        private readonly By _nameSettings = By.CssSelector("c-wiz:nth-of-type(5)>div>div:nth-of-type(2)>div:nth-of-type(1)");
         public AccountSettingsPageObject() : base(By.XPath("//a[contains(@href,'/privacy?')]"))
         {
         }
@@ -21,8 +22,9 @@ namespace MailAuthorizationTests.GmailPageObjects
         public OpenedEmailPageObject ChangeAccountPseudonim(string pseudonim)
         {
             GoToUserPseudonim();
+            WaitUtil.WaitForElementIsDisplayed(_pseudonimField);
             WebDriver.FindElement(_pseudonimField).SendKeys(pseudonim);
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _saveButton);
+            WaitUtil.WaitForElementIsDisplayed(_saveButton);
             WebDriver.FindElement(_saveButton).Click();
             WebDriver.SwitchTo().Window(WebDriver.WindowHandles.First());
             return new OpenedEmailPageObject();
@@ -30,32 +32,33 @@ namespace MailAuthorizationTests.GmailPageObjects
 
         public string GetAccountPseudonim()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _personalInfoButton);
+            WaitUtil.WaitForElementIsDisplayed(_personalInfoButton);
             WebDriver.FindElement(_personalInfoButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _changeAccountNameButton);
+            WaitUtil.WaitForElementIsDisplayed(_changeAccountNameButton);
             WebDriver.FindElement(_changeAccountNameButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _pseudonim);
+            WaitUtil.WaitForElementIsDisplayed(_pseudonim);
             return WebDriver.FindElement(_pseudonim).Text;
         }
 
         public void DeleteAccountPseudonim()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _changePseudonimButton);
+            WaitUtil.WaitForElementIsDisplayed(_changePseudonimButton);
             WebDriver.FindElement(_changePseudonimButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _deletePseudonimButton);
+            WaitUtil.WaitForElementIsDisplayed(_deletePseudonimButton);
             WebDriver.FindElement(_deletePseudonimButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _confirmDeletePseudonumBtn);
+            WaitUtil.WaitForElementIsDisplayed(_confirmDeletePseudonumBtn);
             WebDriver.FindElement(_confirmDeletePseudonumBtn).Click();
+            WaitUtil.WaitForElementIsDisplayed(_nameSettings);
         }
         private void GoToUserPseudonim ()
         {
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _personalInfoButton);
+            WaitUtil.WaitForElementIsDisplayed(_personalInfoButton);
             WebDriver.FindElement(_personalInfoButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _changeAccountNameButton);
+            WaitUtil.WaitForElementIsDisplayed(_changeAccountNameButton);
             WebDriver.FindElement(_changeAccountNameButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _changePseudonimButton);
+            WaitUtil.WaitForElementIsDisplayed(_changePseudonimButton);
             WebDriver.FindElement(_changePseudonimButton).Click();
-            WaitUtil.WaitForElementIsDisplayed(WebDriver, _pseudonimField);
+            WaitUtil.WaitForElementIsDisplayed(_pseudonim);
         }
     }
 }

@@ -9,9 +9,9 @@ namespace MailAuthorizationTests.Environment
     public static class WaitUtil
     {
         static Logger logger = LogManager.GetCurrentClassLogger();
-
-        public static bool WaitForElementIsDisplayed(IWebDriver webDriver, By locator, string errorMessage = "Element is not found")
+        public static bool WaitForElementIsDisplayed(By locator, string errorMessage = "Element is not found")
         {
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(10));
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException), typeof(StaleElementReferenceException));
             try
@@ -29,8 +29,9 @@ namespace MailAuthorizationTests.Environment
             }
         }
 
-        public static bool WaitForEmailInGMailInbox(IWebDriver webDriver, string SentEmailBody, string errorMessage = "Sent email is different from received email")
+        public static bool WaitForEmailInGMailInbox(string SentEmailBody, string errorMessage = "Sent email is different from received email")
         {
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
             wait.PollingInterval = TimeSpan.FromSeconds(10);
             try
@@ -47,8 +48,9 @@ namespace MailAuthorizationTests.Environment
             }
         }
 
-        public static bool WaitForEmailInMailRuInbox(IWebDriver webDriver, string receivedEmailBody, string errorMessage = "Sent email is different from received email")
+        public static bool WaitForEmailInMailRuInbox(string receivedEmailBody, string errorMessage = "Sent email is different from received email")
         {
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
             wait.PollingInterval = TimeSpan.FromSeconds(10);
             try

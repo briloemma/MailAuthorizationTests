@@ -45,7 +45,7 @@ namespace MailAuthorizationTests.Environment
             {
                 Screenshot TakeScreenshot = ((ITakesScreenshot)WebDriverFactory.GetInstance()).GetScreenshot();
 
-                TakeScreenshot.SaveAsFile($"{filePath}\\{fileName}{this.GetType().Name}.png");
+                TakeScreenshot.SaveAsFile($"{filePath}\\{fileName}.png");
             }
             catch (Exception e)
             {

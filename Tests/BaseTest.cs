@@ -14,15 +14,15 @@ namespace MailAuthorizationTests.Tests
                 //add test name to screeshot name TestContext.CurrentContext.Test.FullName
                 testListener.TestFailed();
             }
-            WebDriver.GetInstance().Quit();
+            WebDriverFactory.GetInstance().Quit();
         }
 
         [SetUp]
         protected void DoBeforeEachTest()
         {
-            WebDriver.GetInstance().Manage().Cookies.DeleteAllCookies();
-            WebDriver.GetInstance().Manage().Window.Maximize();
-            WebDriver.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
+            WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
+            WebDriverFactory.GetInstance().Manage().Window.Maximize();
+            WebDriverFactory.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
         }
 
     }

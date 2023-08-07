@@ -8,7 +8,7 @@ namespace MailAuthorizationTests.Environment
         {
             try
             {
-                WebDriver.GetInstance().SwitchTo().Alert();
+                WebDriverFactory.GetInstance().SwitchTo().Alert();
                 return true;
             }
             catch (NoAlertPresentException Ex)

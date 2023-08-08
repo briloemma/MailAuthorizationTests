@@ -9,9 +9,8 @@ namespace MailAuthorizationTests.Tests
         protected void DoAfterEachTest()
         {
             TestListener testListener = new TestListener();
-            if (TestContext.CurrentContext.Result.Outcome == ResultState.Error)
+            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                //add test name to screeshot name TestContext.CurrentContext.Test.FullName
                 testListener.TestFailed();
             }
             WebDriverFactory.GetInstance().Quit();

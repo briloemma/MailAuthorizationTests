@@ -1,4 +1,5 @@
 ﻿using Amazon.RDS.Model;
+using Microsoft.Extensions.Options;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WebDriverManager;
@@ -15,10 +16,9 @@ namespace MailAuthorizationTests.Environment
             if (webDriver?.SessionId == null)
             {
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.AddArguments("headless");
-                chromeOptions.AddArguments("window-size=1980,1080");
-                webDriver = new ChromeDriver(chromeOptions);
+                ChromeOptions options = new ChromeOptions();
+                options.AddArguments("--headless",  "--window-size=1920,1200");
+                webDriver = new ChromeDriver(options);
             }
             return webDriver;
         }

@@ -17,7 +17,7 @@ namespace MailAuthorizationTests.Environment
             {
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
                 ChromeOptions options = new ChromeOptions();
-                options.AddArguments("--headless",  "--window-size=1920,1200");
+                options.AddArguments("headless",  "window-size=1920,1200");
                 webDriver = new ChromeDriver(options);
             }
             return webDriver;

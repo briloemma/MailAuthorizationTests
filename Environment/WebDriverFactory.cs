@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Amazon.RDS.Model;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
@@ -13,8 +14,10 @@ namespace MailAuthorizationTests.Environment
         {
             if (webDriver?.SessionId == null)
             {
+                ChromeOptions option = new ChromeOptions();
+                option.AddArgument("--headless");
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
-                webDriver = new ChromeDriver();
+                webDriver = new ChromeDriver(option);
             }
             return webDriver;
         }

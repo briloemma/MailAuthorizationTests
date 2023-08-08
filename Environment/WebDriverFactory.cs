@@ -16,9 +16,7 @@ namespace MailAuthorizationTests.Environment
             if (webDriver?.SessionId == null)
             {
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
-                ChromeOptions options = new ChromeOptions();
-                options.AddArguments("headless",  "window-size=1920,1200");
-                webDriver = new ChromeDriver(options);
+                webDriver = new ChromeDriver();
             }
             return webDriver;
         }

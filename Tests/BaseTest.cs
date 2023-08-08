@@ -21,7 +21,6 @@ namespace MailAuthorizationTests.Tests
         protected void DoBeforeEachTest()
         {
             WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
-            WebDriverFactory.GetInstance().Manage().Window.Size = new System.Drawing.Size(1920, 1080);
             WebDriverFactory.GetInstance().Manage().Window.Maximize();
             WebDriverFactory.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
         }

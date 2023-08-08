@@ -14,10 +14,11 @@ namespace MailAuthorizationTests.Environment
         {
             if (webDriver?.SessionId == null)
             {
-                //var options = new ChromeOptions();
-                //options.AddArguments("--window-size=1920,1080", "--headless");
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
-                webDriver = new ChromeDriver();
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.AddArguments("headless");
+                chromeOptions.AddArguments("window-size=1980,1080");
+                webDriver = new ChromeDriver(chromeOptions);
             }
             return webDriver;
         }

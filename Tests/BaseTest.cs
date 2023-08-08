@@ -8,10 +8,9 @@ namespace MailAuthorizationTests.Tests
         [TearDown]
         protected void DoAfterEachTest()
         {
-            TestListener testListener = new TestListener();
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
-                testListener.TestFailed();
+                ScreenshotUtil.TakeScreenShot();
             }
             WebDriverFactory.GetInstance().Quit();
         }

@@ -10,6 +10,7 @@ namespace MailAuthorizationTests.Tests
         [Test]
         public void BasicLoginTestCorrectInput()
         {
+            Assert.Fail();
             MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
             authorizationPageObject.Login(UserCreator.GetGmailUser());

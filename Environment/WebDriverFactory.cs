@@ -17,7 +17,7 @@ namespace MailAuthorizationTests.Environment
                 
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.AddArguments("--start-maximized");
+                chromeOptions.AddArguments("window-size=1400,600");
                 webDriver = new ChromeDriver(chromeOptions);
             }
             return webDriver;

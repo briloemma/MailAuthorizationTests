@@ -8,7 +8,7 @@ using WebDriverManager.Helpers;
 
 namespace MailAuthorizationTests.Environment
 {
-    public sealed class WebDriverFactory
+    public sealed class WebDriverSingleton
     {
         private static WebDriver? webDriver;
         public static WebDriver GetInstance()

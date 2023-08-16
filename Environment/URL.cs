@@ -4,8 +4,8 @@
     {
         public static void GoToURL(string url)
         {
-            WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
-            WebDriverFactory.GetInstance().Navigate().GoToUrl(url);
+            WebDriverSingleton.GetInstance().Manage().Cookies.DeleteAllCookies();
+            WebDriverSingleton.GetInstance().Navigate().GoToUrl(url);
         }
     }
 }

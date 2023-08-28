@@ -25,7 +25,7 @@ namespace MailAuthorizationTests.Tests
         protected void DoBeforeEachTest()
         {
             WebDriverSingleton.GetInstance().Manage().Cookies.DeleteAllCookies();
-            //WebDriverSingleton.GetInstance().Manage().Window.Maximize();
+            WebDriverSingleton.GetInstance().Manage().Window.Maximize();
             WebDriverSingleton.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
         }
 

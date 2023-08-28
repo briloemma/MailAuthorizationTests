@@ -19,9 +19,9 @@ namespace MailAuthorizationTests.Environment
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.AddArgument("enable-automation");
                 chromeOptions.AddArgument("--headless");
-                chromeOptions.AddArgument("--window-size=2560,1600");
+                //chromeOptions.AddArgument("--window-size=2560,1600");
                 chromeOptions.AddArgument("--no-sandbox");
-                chromeOptions.AddArgument("--disable-extensions");
+                //chromeOptions.AddArgument("--disable-extensions");
                 chromeOptions.AddArgument("--dns-prefetch-disable");
                 chromeOptions.AddArgument("--disable-gpu");
                 webDriver = new ChromeDriver(chromeOptions);

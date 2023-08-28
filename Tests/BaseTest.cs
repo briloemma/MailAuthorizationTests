@@ -16,6 +16,11 @@ namespace MailAuthorizationTests.Tests
             WebDriverSingleton.GetInstance().Quit();
         }
 
+        [OneTimeSetUp]
+        protected void DoBeforeAllTests ()
+        {
+            ScreenshotUtil.DeleteScreenShots();
+        }
         [SetUp]
         protected void DoBeforeEachTest()
         {

@@ -5,8 +5,6 @@ namespace MailAuthorizationTests.PageObjects
 {
     public abstract class BasePageObject
     {
-        string originalWindow = WebDriver.CurrentWindowHandle;
-
         private readonly By _locator;
         public BasePageObject(By locator)
         {

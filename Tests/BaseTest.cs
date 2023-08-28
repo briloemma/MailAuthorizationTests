@@ -1,7 +1,6 @@
-using Amazon.CloudWatch.Model;
+
 using MailAuthorizationTests.Environment;
 using NUnit.Framework.Interfaces;
-using OpenQA.Selenium.DevTools.V111.SystemInfo;
 
 namespace MailAuthorizationTests.Tests
 {
@@ -21,7 +20,7 @@ namespace MailAuthorizationTests.Tests
         protected void DoBeforeEachTest()
         {
             WebDriverSingleton.GetInstance().Manage().Cookies.DeleteAllCookies();
-            WebDriverSingleton.GetInstance().Manage().Window.Maximize();
+            WebDriverSingleton.GetInstance().Manage().Window.Size = new System.Drawing.Size(1536,960);
             WebDriverSingleton.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
         }
 

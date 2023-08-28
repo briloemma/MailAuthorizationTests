@@ -35,8 +35,17 @@ namespace MailAuthorizationTests.Environment
 
         public static void DeleteScreenShots()
         {
+
             if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Screenshots")))
-                Directory.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Screenshots"));
-        }
-    }
+            {
+                DirectoryInfo di = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Screenshots"));
+
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+
+            }
+        }     
+   }
 }

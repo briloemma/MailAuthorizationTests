@@ -17,9 +17,7 @@ namespace MailAuthorizationTests.Environment
             {
                 new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.Latest);
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.AddArgument("--incognito");
                 chromeOptions.AddArgument("--window-size=1920,1080");
-                chromeOptions.AddArgument("--start-maximized");
                 webDriver = new ChromeDriver(chromeOptions);
             }
             return webDriver;

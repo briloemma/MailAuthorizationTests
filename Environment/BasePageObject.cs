@@ -5,7 +5,7 @@ namespace MailAuthorizationTests.PageObjects
 {
     public abstract class BasePageObject
     {
-        private readonly By _locator;
+        private By _locator;
         public BasePageObject(By locator)
         {
             _locator = locator;

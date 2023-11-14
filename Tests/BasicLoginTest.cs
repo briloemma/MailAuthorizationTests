@@ -1,5 +1,6 @@
 ﻿using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.PageObjects;
+using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using MailAuthorizationTests.Users;
 
 namespace MailAuthorizationTests.Tests
@@ -31,6 +32,5 @@ namespace MailAuthorizationTests.Tests
             yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin(), GmailTestConfig.GmailNotFoundError);
             yield return new TestCaseData(UserCreator.GetEmptyGmailUser(), GmailTestConfig.EnterGmailError);
         }
-
     }
 }

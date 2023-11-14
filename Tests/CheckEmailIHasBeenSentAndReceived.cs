@@ -1,8 +1,8 @@
 ﻿using Amazon.DeviceFarm.Model;
 using MailAuthorizationTests.Environment;
-using MailAuthorizationTests.GmailPageObjects;
-using MailAuthorizationTests.MailRuPageObjects;
 using MailAuthorizationTests.PageObjects;
+using MailAuthorizationTests.PageObjects.GmailPageObjects;
+using MailAuthorizationTests.PageObjects.MailRuPageObjects;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 
@@ -59,17 +59,16 @@ namespace MailAuthorizationTests.Tests
                 WebDriverSingleton.GetInstance().SwitchTo().Alert().Accept();
             LogInMailRuInboxAndSendResponce(sentMessage, expectedPseudonim);
             URL.GoToURL(GmailTestConfig.GmailHostPrefix);
-            AboutPageObject aboutPageObject = new AboutPageObject();
-            OpenedEmailPageObject openedEmailPageObject = new OpenedEmailPageObject();
-            AccountSettingsPageObject accountSettingsPageObject = new AccountSettingsPageObject();
-            MainMenuPageObject mainMenuPageObject =  aboutPageObject.ClickSignInButton().Login(UserCreator.GetGmailUser());
-            WaitUtil.WaitForEmailInGMailInbox(expectedPseudonim);
 
+            WaitUtil.WaitForEmailInGMailInbox(sentMessage);
+            MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             string newPseudonim = mainMenuPageObject.OpenReceivedEmail().GetNewUserPseudonim();
-            openedEmailPageObject.GoToAccountSettings().ChangeAccountPseudonim(newPseudonim);
-            string actualPseudonim = openedEmailPageObject.GoToAccountSettings().GetAccountPseudonim();
+            OpenedEmailPageObject openedEmailPageObject = new OpenedEmailPageObject();
+            string actualPseudonim = openedEmailPageObject.GoToAccountSettings().ChangeAccountPseudonim(newPseudonim).GetAccountPseudonim();
+            //string actualPseudonim = openedEmailPageObject.GoToAccountSettings().GetAccountPseudonim();
             Assert.That(expectedPseudonim, Is.EqualTo(actualPseudonim));
-            accountSettingsPageObject.DeleteAccountPseudonim();
+            AccountSettingsPageObject accountSettingsPageObject = new AccountSettingsPageObject();
+            Assert.IsTrue(accountSettingsPageObject.DeleteAccountPseudonim().Equals("Псевдонима нет"));
         }
 
         private string LogInGmailAndSendEmail()
@@ -84,17 +83,19 @@ namespace MailAuthorizationTests.Tests
 
         private RUMainMenuPageObject LogInMailRuReceiverInbox()
         {
-            RUAuthorizationPageObject ruAuthorization = new RUAuthorizationPageObject();
+            MailRuPageObjects.RUAuthorizationPageObject ruAuthorization = new MailRuPageObjects.RUAuthorizationPageObject();
             return ruAuthorization.Authorize(UserCreator.GetMailRuUser());
         }
 
-        private RUResponsePageObject LogInMailRuInboxAndSendResponce (string sentMessage, string expectedPseudonim)
+        private MailAuthorizationTests.MailRuPageObjects.RUResponsePageObject LogInMailRuInboxAndSendResponce (string sentMessage, string expectedPseudonim)
         {
-                LogInMailRuReceiverInbox()
+            RUMainMenuPageObject ruMainPage = LogInMailRuReceiverInbox();
+            WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
+            ruMainPage
                .CheckInbox(sentMessage)
                .OpenResponsePage()
                .SendResponse(expectedPseudonim);
-            return new RUResponsePageObject();
+            return new MailRuPageObjects.RUResponsePageObject();
         }
     }
 }

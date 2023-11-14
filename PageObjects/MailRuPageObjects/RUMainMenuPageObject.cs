@@ -1,8 +1,7 @@
 ﻿using MailAuthorizationTests.Environment;
-using MailAuthorizationTests.PageObjects;
 using OpenQA.Selenium;
 
-namespace MailAuthorizationTests.MailRuPageObjects
+namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
 {
     public class RUMainMenuPageObject : BasePageObject
     {
@@ -23,7 +22,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
         {
             if (IsEmailReceivedAndNotRead(receivedEmailBody))
                 WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(GmailTestConfig.GmailUserName));
-                WebDriver.FindElements(EmailLineByUser(GmailTestConfig.GmailUserName)).First().Click();
+            WebDriver.FindElements(EmailLineByUser(GmailTestConfig.GmailUserName)).First().Click();
             return new RUOpenedEmailPageObject();
         }
 

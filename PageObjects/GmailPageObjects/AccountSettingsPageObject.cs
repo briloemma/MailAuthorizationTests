@@ -11,7 +11,7 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
         private readonly Button _changePseudonimButton = new Button(By.XPath("//button[contains(@aria-label, \"Псевдоним\")]"));
         private readonly TextInput _pseudonimField = new TextInput(By.CssSelector("span input[type='text']"));
         private readonly Button _saveButton = new Button(By.XPath("//span[text()='Сохранить']"));
-        private readonly TextField _pseudonim = new TextField(By.CssSelector("c-wiz:nth-of-type(5)>div>div:nth-of-type(2)>div:nth-of-type(2)>c-wiz>div[class]>div>div>div:nth-of-type(1)>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)"));
+        private readonly By _pseudonim = By.CssSelector("c-wiz>div[class]>div[class]>div[class]>div>div:nth-of-type(2)>div:nth-of-type(1)>div:nth-of-type(2)");
         private readonly Button _deletePseudonimButton = new Button(By.XPath("//button//span[contains(text(),\"Удалить\")]"));
         private readonly Button _confirmDeletePseudonumBtn = new Button(By.CssSelector("[data-mdc-dialog-action='ok']"));
         public AccountSettingsPageObject() : base(By.XPath("//a[contains(@href,'/privacy?')]"))
@@ -21,30 +21,37 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
         public AccountSettingsPageObject ChangeAccountPseudonim(string pseudonim)
         {
             GoToUserPseudonim();
-            _pseudonimField.SendKeys(pseudonim);
-            _saveButton.Click();
-            WebDriver.SwitchTo().Window(WebDriver.WindowHandles.First());
+            ChangePseudonim(pseudonim);
             return new AccountSettingsPageObject();
         }
 
         public string GetAccountPseudonim()
         {
-            return _pseudonim.GetText();
+            Thread.Sleep(5000);
+            WaitUntilPageIsDispayed();
+            return WebDriver.FindElements(_pseudonim).Last().Text;
+        }
+        public AccountSettingsPageObject GoToUserPseudonim()
+        {
+            _personalInfoButton.Click();
+            _changeAccountNameButton.Click();
+            return this;
         }
 
-        public string DeleteAccountPseudonim()
+        public void DeleteAccountPseudonim()
         {
+            WebDriver.SwitchTo().Window(WebDriver.WindowHandles.Last());
+            WebDriver.Navigate().Refresh();
             _changePseudonimButton.Click();
             _deletePseudonimButton.Click();
             _confirmDeletePseudonumBtn.Click();
-            return GetAccountPseudonim();
         }
-        private void GoToUserPseudonim ()
+        
+        private void ChangePseudonim (string pseudonim)
         {
-            _personalInfoButton.Click();
-            Thread.Sleep(5000);
-            _changeAccountNameButton.Click();
             _changePseudonimButton.Click();
+            _pseudonimField.SendKeys(pseudonim);
+            _saveButton.Click();
         }
     }
 }

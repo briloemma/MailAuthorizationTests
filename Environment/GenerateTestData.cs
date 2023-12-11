@@ -8,7 +8,7 @@ namespace MailAuthorizationTests.Environment
 
         public static int GetRandomNumber()
         {
-            return getrandom.Next(1, 1000);
+            return getrandom.Next(1, 10000);
         }
         public static string GenerateRandomString(int size, bool lowerCase = true)
         {

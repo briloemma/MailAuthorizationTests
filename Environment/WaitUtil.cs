@@ -1,4 +1,5 @@
-﻿using MailAuthorizationTests.MailRuPageObjects;
+﻿using Amazon.DynamoDBv2;
+using MailAuthorizationTests.MailRuPageObjects;
 using MailAuthorizationTests.PageObjects;
 using NLog;
 using OpenQA.Selenium;
@@ -29,17 +30,34 @@ namespace MailAuthorizationTests.Environment
             }
         }
 
-        public static bool WaitForElementIsDisplayedOnParentElement(IWebElement element, By locator, string errorMessage = "Element is not found")
+        public static bool WaitUntilElementIsNotDisplayed(By locator, int waitSeconds = 5, int pollingIntervalSeconds = 1, string errorMessage = "Element is displayed but it shouldn't")
         {
             var webDriver = WebDriverSingleton.GetInstance();
-            WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(30));
-            wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException));
-            Actions actions = new Actions(webDriver);
+            WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(waitSeconds));
+            wait.PollingInterval = TimeSpan.FromSeconds(pollingIntervalSeconds);
             try
             {
                 return wait.Until(webDriver =>
                 {
-                    actions.MoveToElement(webDriver.FindElements(locator).First());
+                    var webElements = webDriver.FindElements(locator);
+                    return !webElements.FirstOrDefault()?.Displayed ?? true;
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"{locator} {errorMessage}" + "\n" + $"{ex.Message}");
+                throw new Exception($"{locator} {errorMessage}" + "\n" + $"{ex.GetType} " + $"{ex.Message}");
+            }
+        }
+
+        public static bool WaitForElementIsDisplayedOnParentElement(IWebElement element, By locator, string errorMessage = "Element is not found")
+        {
+            var webDriver = WebDriverSingleton.GetInstance();
+            WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(30));
+            try
+            {
+                return wait.Until(webDriver =>
+                {
                     var webElements = element.FindElements(locator);
                     return webElements.FirstOrDefault()?.Displayed ?? false;
                 });
@@ -55,8 +73,7 @@ namespace MailAuthorizationTests.Environment
         {
             var webDriver = WebDriverSingleton.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
-            wait.PollingInterval = TimeSpan.FromSeconds(10);
-            wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException));
+            wait.PollingInterval = TimeSpan.FromSeconds(15);
             try
             {
                 return wait.Until(webDriver =>

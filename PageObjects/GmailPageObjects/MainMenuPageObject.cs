@@ -12,13 +12,14 @@ namespace MailAuthorizationTests.PageObjects
 
         private readonly Button _writeNewEmailButton = new Button(By.CssSelector("[style='user-select: none']"));
         private readonly By _newMessageTab = By.CssSelector("[aria-label='Новое сообщение']");
-        private readonly TextInput _emailInput = new TextInput (By.CssSelector("[aria-autocomplete='list']"));
+        private readonly TextInput _emailInput = new TextInput(By.CssSelector("[aria-autocomplete='list']"));
         private readonly TextInput _emailTextField = new TextInput(By.CssSelector("[role='textbox']"));
         private readonly Button _sendButton = new Button(By.XPath("//div[contains(@data-tooltip, 'Enter')]"));
         private By EmailLineByUser(string email) => By.CssSelector($"tr>td>div:nth-of-type(2) span[email='{email}']");
         private By _emailLineByRow = By.CssSelector("tbody>tr[role='row']");
         private By _emailLineByContent = By.CssSelector("td[role='gridcell']>div>div>span");
         private readonly TextField _messageSuccessfullySent = new TextField(By.XPath("//span[contains(text(),'Сообщение отправлено')]"));
+        private readonly By _newMessageLabel = By.XPath("//div[contains(text(),'новое')]");
         NLog.Logger logger = LogManager.GetCurrentClassLogger();
 
         public MainMenuPageObject() : base(By.XPath("//img[@role='presentation']"))
@@ -41,18 +42,21 @@ namespace MailAuthorizationTests.PageObjects
         }
         public OpenedEmailPageObject OpenReceivedEmail()
         {
-            WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(GmailTestConfig.SendEmailToAddress));
-            WebDriver.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).First().Click();
+            WaitUntilPageIsDispayed();
+            WaitUtil.WaitUntilElementIsNotDisplayed(_newMessageLabel, 15, 2);
+            var firstEmailLineRow = WebDriver.FindElements(_emailLineByRow).First();
+            firstEmailLineRow.Click();
+            //firstEmailLineRow.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).First().Click();
             return new OpenedEmailPageObject();
         }
 
         public bool IsEmailReceived(string receivedEmailBody)
         {
-            this.WaitUntilPageIsDispayed();
+            WaitUntilPageIsDispayed();
+            WaitUtil.WaitUntilElementIsNotDisplayed(_newMessageLabel, 15, 2);
             var firstEmailLineRow = WebDriver.FindElements(_emailLineByRow).First();
-            WaitUtil.WaitForElementIsDisplayedOnParentElement(firstEmailLineRow, EmailLineByUser(GmailTestConfig.SendEmailToAddress));
-            return firstEmailLineRow.FindElement(_emailLineByContent).Text.Contains(receivedEmailBody) &&
-                firstEmailLineRow.FindElement(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).Displayed;
+            return (firstEmailLineRow.FindElements(_emailLineByContent).FirstOrDefault()?.Text.Contains(receivedEmailBody) ?? false) &&
+                (firstEmailLineRow.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).FirstOrDefault()?.Displayed ?? false);
         }
 
         private MainMenuPageObject WriteNewEmail(string emailAddress, string emailText)

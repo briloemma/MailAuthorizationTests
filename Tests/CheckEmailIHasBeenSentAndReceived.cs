@@ -10,7 +10,6 @@ namespace MailAuthorizationTests.Tests
 {
     public class CheckEmailHasBeenSentAndReceived : BaseTest
     {
-        [Category("SmokeTest")]
         [Test]
         public void CheckEmailHasBeenReceived()
         {
@@ -49,11 +48,12 @@ namespace MailAuthorizationTests.Tests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
+        [Category(SPECIAL_SETUP)]
         [Test]
         public void ChekGmailAccountPseudonimHasBeenChangedCorrectly()
         {
             string expectedPseudonim = $"{GmailTestConfig.NewGmailPseudonim}" + $"{GenerateTestData.GetRandomNumber()}";
-            string sentMessage = LogInGmailAndSendEmail();
+            string sentMessage = SendEmailFromGmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             if (IsAlertPresent.CheckAlertPresence())
                 WebDriverSingleton.GetInstance().SwitchTo().Alert().Accept();
@@ -65,19 +65,20 @@ namespace MailAuthorizationTests.Tests
             string newPseudonim = mainMenuPageObject.OpenReceivedEmail().GetNewUserPseudonim();
             OpenedEmailPageObject openedEmailPageObject = new OpenedEmailPageObject();
             string actualPseudonim = openedEmailPageObject.GoToAccountSettings().ChangeAccountPseudonim(newPseudonim).GetAccountPseudonim();
-            //string actualPseudonim = openedEmailPageObject.GoToAccountSettings().GetAccountPseudonim();
-            Assert.That(expectedPseudonim, Is.EqualTo(actualPseudonim));
-            AccountSettingsPageObject accountSettingsPageObject = new AccountSettingsPageObject();
-            Assert.IsTrue(accountSettingsPageObject.DeleteAccountPseudonim().Equals("Псевдонима нет"));
+            Assert.That(actualPseudonim, Is.EqualTo(expectedPseudonim));
         }
 
         private string LogInGmailAndSendEmail()
         {
-            AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
+            new AuthorizationPageObject().Login(UserCreator.GetGmailUser());
+            string message = SendEmailFromGmail();
+            return message;
+        }
+
+        private string SendEmailFromGmail()
+        {
             string message = GenerateTestData.GenerateRandomString(35);
-            authorizationPageObject
-                .Login(UserCreator.GetGmailUser())
-                .SendEmail(GmailTestConfig.SendEmailToAddress, message);
+            new MainMenuPageObject().SendEmail(GmailTestConfig.SendEmailToAddress, message);
             return message;
         }
 

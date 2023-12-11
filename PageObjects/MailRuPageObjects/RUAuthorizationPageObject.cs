@@ -9,7 +9,7 @@ namespace MailAuthorizationTests.MailRuPageObjects
 {
     public class RUAuthorizationPageObject : BasePageObject
     {
-        private readonly Button _authorizationButton = new Button(By.CssSelector("[data-testid='enter-mail-primary']"));
+        private readonly Button _authorizationButton = new Button(By.CssSelector("button[style]"));
         private readonly TextInput _accountNameField = new TextInput(By.CssSelector("[autocomplete='username']"));
         private readonly Button _enterPasswordButton = new Button(By.CssSelector("[data-test-id='next-button']"));
         private readonly TextInput _passwordField = new TextInput(By.CssSelector("[name='password']"));

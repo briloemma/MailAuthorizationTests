@@ -45,6 +45,7 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
             _changePseudonimButton.Click();
             _deletePseudonimButton.Click();
             _confirmDeletePseudonumBtn.Click();
+            WebDriver.Navigate().Refresh();
         }
         
         private void ChangePseudonim (string pseudonim)

@@ -46,7 +46,6 @@ namespace MailAuthorizationTests.PageObjects
             WaitUtil.WaitUntilElementIsNotDisplayed(_newMessageLabel, 15, 2);
             var firstEmailLineRow = WebDriver.FindElements(_emailLineByRow).First();
             firstEmailLineRow.Click();
-            //firstEmailLineRow.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).First().Click();
             return new OpenedEmailPageObject();
         }
 

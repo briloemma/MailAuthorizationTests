@@ -1,6 +1,4 @@
-﻿using NUnit.Framework.Interfaces;
-using OpenQA.Selenium;
-using System.Reflection;
+﻿using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.Environment
 {
@@ -46,6 +44,6 @@ namespace MailAuthorizationTests.Environment
                 }
 
             }
-        }     
-   }
+        }
+    }
 }

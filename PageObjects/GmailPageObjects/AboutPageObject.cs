@@ -1,5 +1,4 @@
 ﻿using MailAuthorizationTests.BaseUIControls;
-using MailAuthorizationTests.Environment;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.PageObjects.GmailPageObjects

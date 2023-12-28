@@ -1,11 +1,5 @@
-﻿using AngleSharp.Css.Parser;
-using MailAuthorizationTests.Environment;
+﻿using MailAuthorizationTests.Environment;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MailAuthorizationTests.BaseUIControls
 {
@@ -13,10 +7,10 @@ namespace MailAuthorizationTests.BaseUIControls
     {
         public Button(By locator) : base(locator)
         {
-            
+
         }
 
-        public void Click (bool withWait=true)
+        public void Click(bool withWait = true)
         {
             if (withWait)
             {

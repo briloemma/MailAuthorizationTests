@@ -1,10 +1,6 @@
-﻿using Amazon.IdentityManagement.Model;
-using MailAuthorizationTests.BaseUIControls;
-using MailAuthorizationTests.Environment;
-using MailAuthorizationTests.Users;
+﻿using MailAuthorizationTests.BaseUIControls;
 using NLog;
 using OpenQA.Selenium;
-using System.Runtime.CompilerServices;
 using User = MailAuthorizationTests.Users.User;
 
 namespace MailAuthorizationTests.PageObjects.GmailPageObjects
@@ -22,7 +18,7 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
         {
         }
 
-        
+
 
         public MainMenuPageObject Login(User user)
         {

@@ -1,10 +1,7 @@
-﻿using Amazon.DeviceFarm.Model;
-using MailAuthorizationTests.Environment;
+﻿using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using MailAuthorizationTests.PageObjects.MailRuPageObjects;
-using NUnit.Framework.Interfaces;
-using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.Tests
 {
@@ -88,7 +85,7 @@ namespace MailAuthorizationTests.Tests
             return ruAuthorization.Authorize(UserCreator.GetMailRuUser());
         }
 
-        private MailAuthorizationTests.MailRuPageObjects.RUResponsePageObject LogInMailRuInboxAndSendResponce (string sentMessage, string expectedPseudonim)
+        private MailAuthorizationTests.MailRuPageObjects.RUResponsePageObject LogInMailRuInboxAndSendResponce(string sentMessage, string expectedPseudonim)
         {
             RUMainMenuPageObject ruMainPage = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(sentMessage);

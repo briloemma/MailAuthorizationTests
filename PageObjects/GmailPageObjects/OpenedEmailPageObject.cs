@@ -1,6 +1,5 @@
 ﻿using MailAuthorizationTests.BaseUIControls;
 using MailAuthorizationTests.Environment;
-using NPOI.SS.Formula.Functions;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.PageObjects.GmailPageObjects

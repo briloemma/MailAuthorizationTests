@@ -1,9 +1,6 @@
-﻿using Amazon.DynamoDBv2;
-using MailAuthorizationTests.MailRuPageObjects;
-using MailAuthorizationTests.PageObjects;
+﻿using MailAuthorizationTests.PageObjects;
 using NLog;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace MailAuthorizationTests.Environment

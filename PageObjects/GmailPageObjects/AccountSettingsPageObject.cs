@@ -1,12 +1,11 @@
 ﻿using MailAuthorizationTests.BaseUIControls;
-using MailAuthorizationTests.Environment;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.PageObjects.GmailPageObjects
 {
     public class AccountSettingsPageObject : BasePageObject
     {
-        private readonly Button _personalInfoButton = new Button (By.CssSelector("a[href='personal-info'] div[style]"));
+        private readonly Button _personalInfoButton = new Button(By.CssSelector("a[href='personal-info'] div[style]"));
         private readonly Button _changeAccountNameButton = new Button(By.XPath("//a[contains(@href, 'profile/name')]"));
         private readonly Button _changePseudonimButton = new Button(By.XPath("//button[contains(@aria-label, \"Псевдоним\")]"));
         private readonly TextInput _pseudonimField = new TextInput(By.CssSelector("span input[type='text']"));
@@ -47,8 +46,8 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
             _confirmDeletePseudonumBtn.Click();
             WebDriver.Navigate().Refresh();
         }
-        
-        private void ChangePseudonim (string pseudonim)
+
+        private void ChangePseudonim(string pseudonim)
         {
             _changePseudonimButton.Click();
             _pseudonimField.SendKeys(pseudonim);

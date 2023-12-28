@@ -20,7 +20,7 @@ namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
 
         public string GetEmailBody()
         {
-           return _emailBody.GetText();
+            return _emailBody.GetText();
         }
 
         public MailAuthorizationTests.MailRuPageObjects.RUResponsePageObject OpenResponsePage()

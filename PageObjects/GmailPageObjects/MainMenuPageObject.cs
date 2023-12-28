@@ -3,7 +3,6 @@ using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using NLog;
 using OpenQA.Selenium;
-using System.Net.Mail;
 
 namespace MailAuthorizationTests.PageObjects
 {

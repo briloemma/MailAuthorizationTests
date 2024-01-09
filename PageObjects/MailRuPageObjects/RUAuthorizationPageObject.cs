@@ -14,7 +14,8 @@ namespace MailAuthorizationTests.MailRuPageObjects
         private Button EnterPasswordButton => new Button(By.CssSelector("[data-test-id='next-button']"));
         private TextInput PasswordField => new TextInput(By.CssSelector("[name='password']"));
         private Button SignInButton => new Button(By.CssSelector("[class='submit-button-wrap']"));
-        private By Iframe = By.CssSelector("[frameborder='0']");
+        private By Iframe => By.CssSelector("[frameborder='0']");
+
         Logger logger = LogManager.GetCurrentClassLogger();
 
         public RUAuthorizationPageObject() : base(By.CssSelector("[href='//mail.ru']"))

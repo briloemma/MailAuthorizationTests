@@ -16,7 +16,7 @@ namespace MailAuthorizationTests.BaseUIControls
             {
                 IsDisplayed();
             }
-            WebDriverSingleton.GetInstance().FindElement(_locator).Click();
+            webElement.Click();
         }
 
     }

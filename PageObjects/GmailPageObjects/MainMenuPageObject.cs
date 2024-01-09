@@ -9,16 +9,16 @@ namespace MailAuthorizationTests.PageObjects
     public class MainMenuPageObject : BasePageObject
     {
 
-        private readonly Button _writeNewEmailButton = new Button(By.CssSelector("[style='user-select: none']"));
-        private readonly By _newMessageTab = By.CssSelector("[aria-label='Новое сообщение']");
-        private readonly TextInput _emailInput = new TextInput(By.CssSelector("[aria-autocomplete='list']"));
-        private readonly TextInput _emailTextField = new TextInput(By.CssSelector("[role='textbox']"));
-        private readonly Button _sendButton = new Button(By.XPath("//div[contains(@data-tooltip, 'Enter')]"));
+        private  Button WriteNewEmailButton => new Button(By.CssSelector("[style='user-select: none']"));
+        private  By NewMessageTab => By.CssSelector("[aria-label='Новое сообщение']");
+        private TextInput EmailInput => new TextInput(By.CssSelector("[aria-autocomplete='list']"));
+        private TextInput EmailTextField => new TextInput(By.CssSelector("[role='textbox']"));
+        private Button SendButton => new Button(By.XPath("//div[contains(@data-tooltip, 'Enter')]"));
         private By EmailLineByUser(string email) => By.CssSelector($"tr>td>div:nth-of-type(2) span[email='{email}']");
-        private By _emailLineByRow = By.CssSelector("tbody>tr[role='row']");
-        private By _emailLineByContent = By.CssSelector("td[role='gridcell']>div>div>span");
-        private readonly TextField _messageSuccessfullySent = new TextField(By.XPath("//span[contains(text(),'Сообщение отправлено')]"));
-        private readonly By _newMessageLabel = By.XPath("//div[contains(text(),'новое')]");
+        private By EmailLineByRow => By.CssSelector("tbody>tr[role='row']");
+        private By EmailLineByContent => By.CssSelector("td[role='gridcell']>div>div>span");
+        private TextField MessageSuccessfullySent => new TextField(By.XPath("//span[contains(text(),'Сообщение отправлено')]"));
+        private By NewMessageLabel => By.XPath("//div[contains(text(),'новое')]");
         NLog.Logger logger = LogManager.GetCurrentClassLogger();
 
         public MainMenuPageObject() : base(By.XPath("//img[@role='presentation']"))
@@ -37,13 +37,13 @@ namespace MailAuthorizationTests.PageObjects
 
         public bool HasEmailBeenSentSuccessfully()
         {
-            return _messageSuccessfullySent.IsDisplayed();
+            return MessageSuccessfullySent.IsDisplayed();
         }
         public OpenedEmailPageObject OpenReceivedEmail()
         {
             WaitUntilPageIsDispayed();
-            WaitUtil.WaitUntilElementIsNotDisplayed(_newMessageLabel, 15, 2);
-            var firstEmailLineRow = WebDriver.FindElements(_emailLineByRow).First();
+            WaitUtil.WaitUntilElementIsNotDisplayed(NewMessageLabel, 15, 2);
+            var firstEmailLineRow = WebDriver.FindElements(EmailLineByRow).First();
             firstEmailLineRow.Click();
             return new OpenedEmailPageObject();
         }
@@ -51,25 +51,25 @@ namespace MailAuthorizationTests.PageObjects
         public bool IsEmailReceived(string receivedEmailBody)
         {
             WaitUntilPageIsDispayed();
-            WaitUtil.WaitUntilElementIsNotDisplayed(_newMessageLabel, 15, 2);
-            var firstEmailLineRow = WebDriver.FindElements(_emailLineByRow).First();
-            return (firstEmailLineRow.FindElements(_emailLineByContent).FirstOrDefault()?.Text.Contains(receivedEmailBody) ?? false) &&
+            WaitUtil.WaitUntilElementIsNotDisplayed(NewMessageLabel, 15, 2);
+            var firstEmailLineRow = WebDriver.FindElements(EmailLineByRow).First();
+            return (firstEmailLineRow.FindElements(EmailLineByContent).FirstOrDefault()?.Text.Contains(receivedEmailBody) ?? false) &&
                 (firstEmailLineRow.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).FirstOrDefault()?.Displayed ?? false);
         }
 
         private MainMenuPageObject WriteNewEmail(string emailAddress, string emailText)
         {
-            _writeNewEmailButton.Click();
-            WaitUtil.WaitForElementIsDisplayed(_newMessageTab);
-            _emailInput.SendKeys(emailAddress);
-            _emailTextField.SendKeys(emailText);
+            WriteNewEmailButton.Click();
+            WaitUtil.WaitForElementIsDisplayed(NewMessageTab);
+            EmailInput.SendKeys(emailAddress);
+            EmailTextField.SendKeys(emailText);
             return new MainMenuPageObject();
         }
 
         private MainMenuPageObject SendNewEmail()
         {
-            _sendButton.Click();
-            _messageSuccessfullySent.IsDisplayed();
+            SendButton.Click();
+            MessageSuccessfullySent.IsDisplayed();
             return new MainMenuPageObject();
         }
     }

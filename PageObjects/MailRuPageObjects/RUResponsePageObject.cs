@@ -6,9 +6,9 @@ namespace MailAuthorizationTests.MailRuPageObjects
 {
     public class RUResponsePageObject : BasePageObject
     {
-        private readonly Button _sendButton = new Button(By.XPath("//span[text()='Отправить']"));
-        private readonly Button _cancelSendButton = new Button(By.CssSelector("[title = 'Отменить отправку']"));
-        private readonly TextInput _textBox = new TextInput(By.CssSelector("[role='textbox']"));
+        private Button endButton = new Button(By.XPath("//span[text()='Отправить']"));
+        private Button _cancelSendButton = new Button(By.CssSelector("[title = 'Отменить отправку']"));
+        private TextInput _textBox = new TextInput(By.CssSelector("[role='textbox']"));
         public RUResponsePageObject() : base(By.XPath("//div[contains(@class, 'contactsContainer')]"))
         {
         }

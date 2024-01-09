@@ -7,12 +7,12 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
 {
     public class AuthorizationPageObject : BasePageObject
     {
-        private readonly TextInput _emailInput = new TextInput(By.CssSelector("[type='email']"));
-        private readonly Button _proceedButton = new Button(By.XPath("//span[text()='Next']"));
-        private readonly TextInput _passwordInput = new TextInput(By.CssSelector("[name='Passwd']"));
-        private readonly TextField _emailNotFoundMessage = new TextField(By.XPath("//div[contains(@class, 'o6')]"));
-        private readonly Button _mainMenuButton = new Button(By.XPath("//img[@role='presentation']"));
-        private readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private TextInput EmailInput => new TextInput(By.CssSelector("[type='email']"));
+        private Button ProceedButton => new Button(By.XPath("//span[text()='Next']"));
+        private TextInput PasswordInput => new TextInput(By.CssSelector("[name='Passwd']"));
+        private TextField EmailNotFoundMessage => new TextField(By.XPath("//div[contains(@class, 'o6')]"));
+        private Button MainMenuButton => new Button(By.XPath("//img[@role='presentation']"));
+        private Logger logger => LogManager.GetCurrentClassLogger();
 
         public AuthorizationPageObject() : base(By.XPath("//span[text()='Выберите аккаунт']"))
         {
@@ -24,32 +24,32 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
         {
             SendUserEmail(user);
             SendUserPassword(user);
-            _mainMenuButton.IsDisplayed();
+            MainMenuButton.IsDisplayed();
             logger.Info("Login perfomed");
             return new MainMenuPageObject();
         }
 
         public AuthorizationPageObject SendUserEmail(User user)
         {
-            _emailInput.SendKeys(user.GetLogin());
-            _proceedButton.Click();
+            EmailInput.SendKeys(user.GetLogin());
+            ProceedButton.Click();
             return new AuthorizationPageObject();
         }
 
         public bool GetEmailNotFoundMessage()
         {
-            return _emailNotFoundMessage.IsDisplayed();
+            return EmailNotFoundMessage.IsDisplayed();
         }
 
         public string GetEmailNotFoundTextMessage()
         {
-            return _emailNotFoundMessage.GetText();
+            return EmailNotFoundMessage.GetText();
         }
 
         private AuthorizationPageObject SendUserPassword(User user)
         {
-            _passwordInput.SendKeys(user.GetPassword());
-            _proceedButton.Click();
+            PasswordInput.SendKeys(user.GetPassword());
+            ProceedButton.Click();
             return new AuthorizationPageObject();
         }
     }

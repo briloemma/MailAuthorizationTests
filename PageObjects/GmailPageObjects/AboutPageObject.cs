@@ -5,7 +5,7 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
 {
     public class AboutPageObject : BasePageObject
     {
-        private readonly Button _signInButton = new Button(By.CssSelector("[data-action='sign in']"));
+        private Button SignInButton => new Button(By.CssSelector("[data-action='sign in']"));
 
         public AboutPageObject() : base(By.CssSelector("[data-action='sign in']"))
         {
@@ -13,7 +13,7 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
 
         public AuthorizationPageObject ClickSignInButton()
         {
-            _signInButton.Click();
+            SignInButton.Click();
             return new AuthorizationPageObject();
         }
     }

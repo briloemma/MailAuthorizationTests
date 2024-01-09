@@ -6,9 +6,9 @@ namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
     public class RUMainMenuPageObject : BasePageObject
     {
         private By EmailLineByUser(string gmail) => By.XPath($"//span[contains(@title, '{gmail}')]");
-        private readonly By _readEmailButton = By.CssSelector("[title='Пометить прочитанным']");
-        private By _emailLineByRow = By.CssSelector("a[data-draggable-id]");
-        private By _emailLineByContent = By.CssSelector("span[class='ll-sp__normal']");
+        private By ReadEmailButton => By.CssSelector("[title='Пометить прочитанным']");
+        private By EmailLineByRow => By.CssSelector("a[data-draggable-id]");
+        private By EmailLineByContent => By.CssSelector("span[class='ll-sp__normal']");
 
         public RUMainMenuPageObject() : base(By.CssSelector("[href='/inbox/?']"))
         {
@@ -28,15 +28,15 @@ namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
 
         public bool IsEmailReceived(string receivedEmailBody)
         {
-            WaitUtil.WaitForElementIsDisplayed(_emailLineByRow);
-            return WebDriver.FindElements(_emailLineByRow).First().FindElement(_emailLineByContent).Text.Contains(receivedEmailBody) &&
-            WebDriver.FindElements(_emailLineByRow).First().FindElement(EmailLineByUser(GmailTestConfig.GmailLogin)).Displayed;
+            WaitUtil.WaitForElementIsDisplayed(EmailLineByRow);
+            return WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByContent).Text.Contains(receivedEmailBody) &&
+            WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByUser(GmailTestConfig.GmailLogin)).Displayed;
         }
 
         private bool IsEmailNotRead()
         {
-            WaitUtil.WaitForElementIsDisplayed(_readEmailButton);
-            return WebDriver.FindElements(_emailLineByRow).First().FindElement(_readEmailButton).Displayed;
+            WaitUtil.WaitForElementIsDisplayed(ReadEmailButton);
+            return WebDriver.FindElements(EmailLineByRow).First().FindElement(ReadEmailButton).Displayed;
         }
     }
 }

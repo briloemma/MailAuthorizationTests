@@ -27,6 +27,25 @@ namespace MailAuthorizationTests.Environment
             }
         }
 
+        public static bool WaitForElementIsEnabled(By locator, string errorMessage = "Element is not found")
+        {
+            var webDriver = WebDriverFactory.GetInstance();
+            WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(10));
+            try
+            {
+                return wait.Until(webDriver =>
+                {
+                    var webElements = webDriver.FindElements(locator);
+                    return webElements.FirstOrDefault()?.Enabled ?? false;
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"{locator} {errorMessage}" + "\n" + $"{ex.Message}");
+                throw new NotFoundException($"{locator} {errorMessage}" + "\n" + $"{ex.GetType} " + $"{ex.Message}");
+            }
+        }
+
         public static bool WaitUntilElementIsNotDisplayed(By locator, int waitSeconds = 5, int pollingIntervalSeconds = 1, string errorMessage = "Element is displayed but it shouldn't")
         {
             var webDriver = WebDriverFactory.GetInstance();

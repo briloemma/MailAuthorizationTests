@@ -14,13 +14,11 @@ namespace MailAuthorizationTests.BaseUIControls
 
         public virtual bool IsDisplayed()
         {
-            WaitUtil.WaitForElementIsDisplayed(locator);
-            return WebDriverFactory.GetInstance().FindElement(locator).Displayed;
+            return WaitUtil.WaitForElementIsDisplayed(locator);
         }
         public virtual bool IsEnabled()
         {
-            WaitUtil.WaitForElementIsDisplayed(locator);
-            return WebDriverFactory.GetInstance().FindElement(locator).Enabled;
+            return WaitUtil.WaitForElementIsEnabled(locator);
         }
     }
 }

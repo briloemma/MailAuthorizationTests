@@ -5,23 +5,22 @@ namespace MailAuthorizationTests.BaseUIControls
 {
     internal abstract class BaseControl : IControl
     {
-        protected IWebElement webElement;
         protected By locator;
+
         public BaseControl(By locator)
         {
-            webElement = WebDriverSingleton.GetInstance().FindElement(locator);
             this.locator = locator;
         }
 
         public virtual bool IsDisplayed()
         {
             WaitUtil.WaitForElementIsDisplayed(locator);
-            return webElement.Displayed;
+            return WebDriverFactory.GetInstance().FindElement(locator).Displayed;
         }
         public virtual bool IsEnabled()
         {
             WaitUtil.WaitForElementIsDisplayed(locator);
-            return webElement.Enabled;
+            return WebDriverFactory.GetInstance().FindElement(locator).Enabled;
         }
     }
 }

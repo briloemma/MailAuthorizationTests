@@ -10,7 +10,7 @@ namespace MailAuthorizationTests.Environment
         static Logger logger = LogManager.GetCurrentClassLogger();
         public static bool WaitForElementIsDisplayed(By locator, string errorMessage = "Element is not found")
         {
-            var webDriver = WebDriverSingleton.GetInstance();
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(10));
             try
             {
@@ -29,7 +29,7 @@ namespace MailAuthorizationTests.Environment
 
         public static bool WaitUntilElementIsNotDisplayed(By locator, int waitSeconds = 5, int pollingIntervalSeconds = 1, string errorMessage = "Element is displayed but it shouldn't")
         {
-            var webDriver = WebDriverSingleton.GetInstance();
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(waitSeconds));
             wait.PollingInterval = TimeSpan.FromSeconds(pollingIntervalSeconds);
             try
@@ -49,7 +49,7 @@ namespace MailAuthorizationTests.Environment
 
         public static bool WaitForElementIsDisplayedOnParentElement(IWebElement element, By locator, string errorMessage = "Element is not found")
         {
-            var webDriver = WebDriverSingleton.GetInstance();
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromSeconds(30));
             try
             {
@@ -68,7 +68,7 @@ namespace MailAuthorizationTests.Environment
 
         public static bool WaitForEmailInGMailInbox(string SentEmailBody, string errorMessage = "Sent email is different from received email")
         {
-            var webDriver = WebDriverSingleton.GetInstance();
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
             wait.PollingInterval = TimeSpan.FromSeconds(15);
             try
@@ -88,7 +88,7 @@ namespace MailAuthorizationTests.Environment
 
         public static bool WaitForEmailInMailRuInbox(string receivedEmailBody, string errorMessage = "Sent email is different from received email")
         {
-            var webDriver = WebDriverSingleton.GetInstance();
+            var webDriver = WebDriverFactory.GetInstance();
             WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
             wait.PollingInterval = TimeSpan.FromSeconds(10);
             try

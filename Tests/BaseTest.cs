@@ -15,7 +15,7 @@ namespace MailAuthorizationTests.Tests
             {
                 ScreenshotUtil.TakeScreenShot();
             }
-            WebDriverSingleton.GetInstance().Quit();
+            WebDriverFactory.GetInstance().Quit();
         }
 
         [OneTimeSetUp]
@@ -27,13 +27,13 @@ namespace MailAuthorizationTests.Tests
         [SetUp]
         protected void DoBeforeEachTest()
         {
-            WebDriverSingleton.GetInstance().Manage().Cookies.DeleteAllCookies();
-            WebDriverSingleton.GetInstance().Manage().Window.Maximize();
-            WebDriverSingleton.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
+            WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
+            WebDriverFactory.GetInstance().Manage().Window.Maximize();
+            WebDriverFactory.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
             if (CheckForSpecialSetup())
             {
                 new Hooks().DoBeforeCheckGmailAccountPseudonimHasBeenChangedCorrectly();
-                WebDriverSingleton.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
+                WebDriverFactory.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
             }
         }
 

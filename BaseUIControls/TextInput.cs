@@ -14,7 +14,7 @@ namespace MailAuthorizationTests.BaseUIControls
             {
                 IsDisplayed();
             }
-            webElement.SendKeys(text);
+            WebDriverFactory.GetInstance().FindElement(locator).SendKeys(text);
         }
     }
 }

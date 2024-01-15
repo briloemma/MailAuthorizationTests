@@ -14,5 +14,6 @@
         public string MailRuHostPrefix { get; set; }
         public string MailRuLogin { get; set; }
         public string MailRuPassword { get; set; }
+        public string Browser { get; set; }
     }
 }

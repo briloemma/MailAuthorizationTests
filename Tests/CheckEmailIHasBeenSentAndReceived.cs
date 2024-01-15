@@ -13,7 +13,7 @@ namespace MailAuthorizationTests.Tests
             string sentMessage = LogInGmailAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             if (IsAlertPresent.CheckAlertPresence())
-                WebDriverSingleton.GetInstance().SwitchTo().Alert().Accept();
+                WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             Assert.IsTrue(rUMainMenu.IsEmailReceivedAndNotRead(sentMessage));
@@ -25,7 +25,7 @@ namespace MailAuthorizationTests.Tests
             string sentMessage = LogInGmailAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             if (IsAlertPresent.CheckAlertPresence())
-                WebDriverSingleton.GetInstance().SwitchTo().Alert().Accept();
+                WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             string actual = rUMainMenu.CheckInbox(sentMessage).GetSender();
@@ -38,7 +38,7 @@ namespace MailAuthorizationTests.Tests
             string expected = LogInGmailAndSendEmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             if (IsAlertPresent.CheckAlertPresence())
-                WebDriverSingleton.GetInstance().SwitchTo().Alert().Accept();
+                WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(expected);
             string actual = rUMainMenu.CheckInbox(expected).GetEmailBody();
@@ -53,7 +53,7 @@ namespace MailAuthorizationTests.Tests
             string sentMessage = SendEmailFromGmail();
             URL.GoToURL(MailRuConfig.MailRuHostPrefix);
             if (IsAlertPresent.CheckAlertPresence())
-                WebDriverSingleton.GetInstance().SwitchTo().Alert().Accept();
+                WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             LogInMailRuInboxAndSendResponce(sentMessage, expectedPseudonim);
             URL.GoToURL(GmailTestConfig.GmailHostPrefix);
 

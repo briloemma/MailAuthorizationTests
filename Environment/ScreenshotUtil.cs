@@ -16,7 +16,7 @@ namespace MailAuthorizationTests.Environment
 
             try
             {
-                Screenshot TakeScreenshot = ((ITakesScreenshot)WebDriverSingleton.GetInstance()).GetScreenshot();
+                Screenshot TakeScreenshot = ((ITakesScreenshot)WebDriverFactory.GetInstance()).GetScreenshot();
                 if (!Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Screenshots")))
                 {
                     Directory.CreateDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Screenshots"));

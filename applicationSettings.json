@@ -16,6 +16,6 @@
     "MailRuHostPrefix": "https://mail.ru/"
   },
   "Browser": {
-    "Browser": "Chrome"
+    "Browser": "Edge"
   }
 }

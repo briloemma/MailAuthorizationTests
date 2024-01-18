@@ -1,5 +1,6 @@
-﻿using MailAuthorizationTests.BaseUIControls;
+﻿using MailAuthorizationTests.UIControls;
 using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.Environment.Utils;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using NLog;
 using OpenQA.Selenium;
@@ -17,7 +18,7 @@ namespace MailAuthorizationTests.PageObjects
         private By EmailLineByUser(string email) => By.CssSelector($"tr>td>div:nth-of-type(2) span[email='{email}']");
         private By EmailLineByRow => By.CssSelector("tbody>tr[role='row']");
         private By EmailLineByContent => By.CssSelector("td[role='gridcell']>div>div>span");
-        private TextField MessageSuccessfullySent => new TextField(By.XPath("//span[contains(text(),'Сообщение отправлено')]"));
+        private Label MessageSuccessfullySent => new Label(By.XPath("//span[contains(text(),'Сообщение отправлено')]"));
         private By NewMessageLabel => By.XPath("//div[contains(text(),'новое')]");
         NLog.Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -54,7 +55,7 @@ namespace MailAuthorizationTests.PageObjects
             WaitUtil.WaitUntilElementIsNotDisplayed(NewMessageLabel, 15, 2);
             var firstEmailLineRow = WebDriver.FindElements(EmailLineByRow).First();
             return (firstEmailLineRow.FindElements(EmailLineByContent).FirstOrDefault()?.Text.Contains(receivedEmailBody) ?? false) &&
-                (firstEmailLineRow.FindElements(EmailLineByUser(GmailTestConfig.SendEmailToAddress)).FirstOrDefault()?.Displayed ?? false);
+                (firstEmailLineRow.FindElements(EmailLineByUser(ApplicationConfig.SendEmailToAddress)).FirstOrDefault()?.Displayed ?? false);
         }
 
         private MainMenuPageObject WriteNewEmail(string emailAddress, string emailText)

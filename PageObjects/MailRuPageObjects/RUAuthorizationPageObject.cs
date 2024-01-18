@@ -1,5 +1,5 @@
-﻿using MailAuthorizationTests.BaseUIControls;
-using MailAuthorizationTests.Environment;
+﻿using MailAuthorizationTests.UIControls;
+using MailAuthorizationTests.Environment.Utils;
 using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.Users;
 using NLog;

@@ -1,5 +1,7 @@
 
 using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.Environment.Utils;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
 namespace MailAuthorizationTests.Tests
@@ -29,11 +31,11 @@ namespace MailAuthorizationTests.Tests
         {
             WebDriverFactory.GetInstance().Manage().Cookies.DeleteAllCookies();
             WebDriverFactory.GetInstance().Manage().Window.Maximize();
-            WebDriverFactory.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
+            WebDriverFactory.GetInstance().Navigate().GoToUrl(ApplicationConfig.GmailHostPrefix);
             if (CheckForSpecialSetup())
             {
                 new Hooks().DoBeforeCheckGmailAccountPseudonimHasBeenChangedCorrectly();
-                WebDriverFactory.GetInstance().Navigate().GoToUrl(GmailTestConfig.GmailHostPrefix);
+                WebDriverFactory.GetInstance().Navigate().GoToUrl(ApplicationConfig.GmailHostPrefix);
             }
         }
 

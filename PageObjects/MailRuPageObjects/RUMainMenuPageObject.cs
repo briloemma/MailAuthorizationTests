@@ -1,4 +1,5 @@
 ﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.Environment.Utils;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
@@ -21,8 +22,8 @@ namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
         public RUOpenedEmailPageObject CheckInbox(string receivedEmailBody)
         {
             if (IsEmailReceivedAndNotRead(receivedEmailBody))
-                WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(GmailTestConfig.GmailUserName));
-            WebDriver.FindElements(EmailLineByUser(GmailTestConfig.GmailUserName)).First().Click();
+                WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(ApplicationConfig.GmailUserName));
+            WebDriver.FindElements(EmailLineByUser(ApplicationConfig.GmailUserName)).First().Click();
             return new RUOpenedEmailPageObject();
         }
 
@@ -30,7 +31,7 @@ namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
         {
             WaitUtil.WaitForElementIsDisplayed(EmailLineByRow);
             return WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByContent).Text.Contains(receivedEmailBody) &&
-            WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByUser(GmailTestConfig.GmailLogin)).Displayed;
+            WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByUser(ApplicationConfig.GmailLogin)).Displayed;
         }
 
         private bool IsEmailNotRead()

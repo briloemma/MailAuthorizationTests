@@ -2,6 +2,7 @@
 using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using MailAuthorizationTests.Users;
+using NUnit.Framework;
 
 namespace MailAuthorizationTests.Tests
 {
@@ -29,8 +30,8 @@ namespace MailAuthorizationTests.Tests
 
         private static IEnumerable<TestCaseData> UserList()
         {
-            yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin(), GmailTestConfig.GmailNotFoundError);
-            yield return new TestCaseData(UserCreator.GetEmptyGmailUser(), GmailTestConfig.EnterGmailError);
+            yield return new TestCaseData(UserCreator.GetGmailUserWrongLogin(), ApplicationConfig.GmailNotFoundError);
+            yield return new TestCaseData(UserCreator.GetEmptyGmailUser(), ApplicationConfig.EnterGmailError);
         }
     }
 }

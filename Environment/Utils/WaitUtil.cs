@@ -3,7 +3,7 @@ using NLog;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace MailAuthorizationTests.Environment
+namespace MailAuthorizationTests.Environment.Utils
 {
     public static class WaitUtil
     {

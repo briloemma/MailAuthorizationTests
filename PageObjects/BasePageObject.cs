@@ -1,4 +1,5 @@
 ﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.Environment.Utils;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.PageObjects

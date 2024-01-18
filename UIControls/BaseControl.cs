@@ -1,7 +1,8 @@
 ﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.Environment.Utils;
 using OpenQA.Selenium;
 
-namespace MailAuthorizationTests.BaseUIControls
+namespace MailAuthorizationTests.UIControls
 {
     internal abstract class BaseControl : IControl
     {
@@ -19,6 +20,14 @@ namespace MailAuthorizationTests.BaseUIControls
         public virtual bool IsEnabled()
         {
             return WaitUtil.WaitForElementIsEnabled(locator);
+        }
+        public string GetText(bool withWait = true)
+        {
+            if (withWait)
+            {
+                IsDisplayed();
+            }
+            return WebDriverFactory.GetInstance().FindElement(locator).Text;
         }
     }
 }

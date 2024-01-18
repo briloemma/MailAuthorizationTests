@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-namespace MailAuthorizationTests.Environment
+namespace MailAuthorizationTests.Environment.Utils
 {
-    public static class GenerateTestData
+    public static class GenerateTestDataUtil
     {
         private static readonly Random getrandom = new Random();
 

@@ -1,4 +1,4 @@
-﻿using MailAuthorizationTests.BaseUIControls;
+﻿using MailAuthorizationTests.UIControls;
 using MailAuthorizationTests.PageObjects;
 using OpenQA.Selenium;
 

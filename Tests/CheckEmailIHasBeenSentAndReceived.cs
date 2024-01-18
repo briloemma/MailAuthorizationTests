@@ -1,7 +1,9 @@
 ﻿using MailAuthorizationTests.Environment;
+using MailAuthorizationTests.Environment.Utils;
 using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using MailAuthorizationTests.PageObjects.MailRuPageObjects;
+using NUnit.Framework;
 
 namespace MailAuthorizationTests.Tests
 {
@@ -11,8 +13,8 @@ namespace MailAuthorizationTests.Tests
         public void CheckEmailHasBeenReceived()
         {
             string sentMessage = LogInGmailAndSendEmail();
-            URL.GoToURL(MailRuConfig.MailRuHostPrefix);
-            if (IsAlertPresent.CheckAlertPresence())
+            UrlUtil.GoToURL(ApplicationConfig.MailRuHostPrefix);
+            if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
@@ -23,21 +25,21 @@ namespace MailAuthorizationTests.Tests
         public void CheckSender()
         {
             string sentMessage = LogInGmailAndSendEmail();
-            URL.GoToURL(MailRuConfig.MailRuHostPrefix);
-            if (IsAlertPresent.CheckAlertPresence())
+            UrlUtil.GoToURL(ApplicationConfig.MailRuHostPrefix);
+            if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             string actual = rUMainMenu.CheckInbox(sentMessage).GetSender();
-            Assert.That(actual, Is.EqualTo(GmailTestConfig.GmailUserName));
+            Assert.That(actual, Is.EqualTo(ApplicationConfig.GmailUserName));
         }
 
         [Test]
         public void CheckEmailBody()
         {
             string expected = LogInGmailAndSendEmail();
-            URL.GoToURL(MailRuConfig.MailRuHostPrefix);
-            if (IsAlertPresent.CheckAlertPresence())
+            UrlUtil.GoToURL(ApplicationConfig.MailRuHostPrefix);
+            if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
             WaitUtil.WaitForEmailInMailRuInbox(expected);
@@ -49,13 +51,13 @@ namespace MailAuthorizationTests.Tests
         [Test]
         public void ChekGmailAccountPseudonimHasBeenChangedCorrectly()
         {
-            string expectedPseudonim = $"{GmailTestConfig.NewGmailPseudonim}" + $"{GenerateTestData.GetRandomNumber()}";
+            string expectedPseudonim = $"{ApplicationConfig.NewGmailPseudonim}" + $"{GenerateTestDataUtil.GetRandomNumber()}";
             string sentMessage = SendEmailFromGmail();
-            URL.GoToURL(MailRuConfig.MailRuHostPrefix);
-            if (IsAlertPresent.CheckAlertPresence())
+            UrlUtil.GoToURL(ApplicationConfig.MailRuHostPrefix);
+            if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             LogInMailRuInboxAndSendResponce(sentMessage, expectedPseudonim);
-            URL.GoToURL(GmailTestConfig.GmailHostPrefix);
+            UrlUtil.GoToURL(ApplicationConfig.GmailHostPrefix);
 
             WaitUtil.WaitForEmailInGMailInbox(sentMessage);
             MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
@@ -74,8 +76,8 @@ namespace MailAuthorizationTests.Tests
 
         private string SendEmailFromGmail()
         {
-            string message = GenerateTestData.GenerateRandomString(35);
-            new MainMenuPageObject().SendEmail(GmailTestConfig.SendEmailToAddress, message);
+            string message = GenerateTestDataUtil.GenerateRandomString(35);
+            new MainMenuPageObject().SendEmail(ApplicationConfig.SendEmailToAddress, message);
             return message;
         }
 

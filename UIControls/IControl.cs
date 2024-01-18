@@ -1,4 +1,4 @@
-﻿namespace MailAuthorizationTests.BaseUIControls
+﻿namespace MailAuthorizationTests.UIControls
 {
     internal interface IControl
     {

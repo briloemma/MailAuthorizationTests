@@ -1,0 +1,21 @@
+{
+  "Gmail": {
+    "GmailLogin": "autotests24052023@gmail.com",
+    "GmailPassword": "Autotests!1",
+    "GmailUserName": "Gmail Tests",
+    "GmailWrongLogin": "autotests2405202@gmail.com",
+    "GmailHostPrefix": "https://mail.google.com",
+    "SendEmailToAddress": "autotests24052023@mail.ru",
+    "NewGmailPseudonim": "Pseudonim",
+    "GmailNotFoundError": "Couldn’t find your Google Account",
+    "EnterGmailError": "Enter an email or phone number"
+  },
+  "MailRu": {
+    "MailRuLogin": "autotests24052023",
+    "MailRuPassword": "SummerTime!123",
+    "MailRuHostPrefix": "https://mail.ru/"
+  },
+  "Browser": {
+    "Browser": "Edge"
+  }
+}

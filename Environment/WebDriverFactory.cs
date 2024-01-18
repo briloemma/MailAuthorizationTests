@@ -1,7 +1,9 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Extensions.Options;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V116.Debugger;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Interactions;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
@@ -20,7 +22,7 @@ namespace MailAuthorizationTests.Environment
         {
             if (webDriver?.SessionId == null)
             {
-                switch (BrowserConfig.Browser)
+                switch (ApplicationConfig.Browser)
                 {
                     case "Chrome":
                         {
@@ -30,6 +32,7 @@ namespace MailAuthorizationTests.Environment
                             chromeOptions.AddArgument("--window-size=2560,1600");
                             chromeOptions.AddArgument("--no-sandbox");
                             chromeOptions.AddArgument("--disable-extensions");
+                            chromeOptions.AddArgument("disable-infobars");
                             chromeOptions.AddArgument("--dns-prefetch-disable");
                             chromeOptions.AddArgument("--disable-gpu");
                             webDriver = new ChromeDriver(chromeOptions);
@@ -38,14 +41,16 @@ namespace MailAuthorizationTests.Environment
 
                     case "Edge":
                         {
-                            new DriverManager().SetUpDriver(new EdgeConfig(), VersionResolveStrategy.Latest);
+                            new DriverManager().SetUpDriver(new EdgeConfig(), VersionResolveStrategy.MatchingBrowser);
                             EdgeOptions edgeOptions = new EdgeOptions();
                             edgeOptions.AddArgument("enable-automation");
-                            edgeOptions.AddArgument("--window-size=2560,1600");
+                            edgeOptions.AddArgument("start-maximized");
                             edgeOptions.AddArgument("--no-sandbox");
                             edgeOptions.AddArgument("--disable-extensions");
+                            edgeOptions.AddArgument("disable-infobars");
                             edgeOptions.AddArgument("--dns-prefetch-disable");
                             edgeOptions.AddArgument("--disable-gpu");
+                            edgeOptions.AddArgument("--disable-dev-shm-usage");
                             webDriver = new EdgeDriver(edgeOptions);
                         }
                         break;
@@ -58,6 +63,7 @@ namespace MailAuthorizationTests.Environment
                             chromeOptions.AddArgument("--window-size=2560,1600");
                             chromeOptions.AddArgument("--no-sandbox");
                             chromeOptions.AddArgument("--disable-extensions");
+                            chromeOptions.AddArgument("disable-infobars");
                             chromeOptions.AddArgument("--dns-prefetch-disable");
                             chromeOptions.AddArgument("--disable-gpu");
                             webDriver = new ChromeDriver(chromeOptions);

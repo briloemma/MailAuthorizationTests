@@ -1,10 +1,11 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 
-namespace MailAuthorizationTests.Environment
+namespace MailAuthorizationTests.Environment.Utils
 {
     public static class ScreenshotUtil
     {
-        private static string fileName = String.Format("{0}-{1}-{2} {3}-{4}",
+        private static string fileName = string.Format("{0}-{1}-{2} {3}-{4}",
         DateTime.Now.Day,
         DateTime.Now.Month,
         DateTime.Now.Year,

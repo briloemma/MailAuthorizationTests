@@ -6,12 +6,12 @@ namespace MailAuthorizationTests.Environment
     {
         public static User GetGmailUser()
         {
-            return new User(GmailTestConfig.GmailLogin, GmailTestConfig.GmailPassword);
+            return new User(ApplicationConfig.GmailLogin, ApplicationConfig.GmailPassword);
         }
 
         public static User GetGmailUserWrongLogin()
         {
-            return new User(GmailTestConfig.GmailWrongLogin, "");
+            return new User(ApplicationConfig.GmailWrongLogin, "");
         }
 
         public static User GetEmptyGmailUser()
@@ -21,7 +21,7 @@ namespace MailAuthorizationTests.Environment
 
         public static User GetMailRuUser()
         {
-            return new User(MailRuConfig.MailRuLogin, MailRuConfig.MailRuPassword);
+            return new User(ApplicationConfig.MailRuLogin, ApplicationConfig.MailRuPassword);
         }
     }
 }

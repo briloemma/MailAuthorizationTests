@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace MailAuthorizationTests.Environment
+namespace MailAuthorizationTests.Environment.Utils
 {
     public static class JsonUtil
     {

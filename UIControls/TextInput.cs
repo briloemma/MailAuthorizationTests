@@ -1,7 +1,7 @@
 ﻿using MailAuthorizationTests.Environment;
 using OpenQA.Selenium;
 
-namespace MailAuthorizationTests.BaseUIControls
+namespace MailAuthorizationTests.UIControls
 {
     internal class TextInput : BaseControl
     {

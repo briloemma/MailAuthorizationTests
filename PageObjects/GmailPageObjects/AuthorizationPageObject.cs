@@ -1,4 +1,4 @@
-﻿using MailAuthorizationTests.BaseUIControls;
+﻿using MailAuthorizationTests.UIControls;
 using NLog;
 using OpenQA.Selenium;
 using User = MailAuthorizationTests.Users.User;
@@ -10,7 +10,7 @@ namespace MailAuthorizationTests.PageObjects.GmailPageObjects
         private TextInput EmailInput => new TextInput(By.CssSelector("[type='email']"));
         private Button ProceedButton => new Button(By.XPath("//span[text()='Next']"));
         private TextInput PasswordInput => new TextInput(By.CssSelector("[name='Passwd']"));
-        private TextField EmailNotFoundMessage => new TextField(By.XPath("//div[contains(@class, 'o6')]"));
+        private Label EmailNotFoundMessage => new Label(By.XPath("//div[contains(@class, 'o6')]"));
         private Button MainMenuButton => new Button(By.XPath("//img[@role='presentation']"));
         private Logger logger => LogManager.GetCurrentClassLogger();
 

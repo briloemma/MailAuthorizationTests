@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
 
-namespace MailAuthorizationTests.Environment
+namespace MailAuthorizationTests.Environment.Utils
 {
-    public static class IsAlertPresent
+    public static class AlertUtil
     {
         public static bool CheckAlertPresence()
         {

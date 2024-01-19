@@ -1,5 +1,5 @@
-﻿using MailAuthorizationTests.UIControls;
-using MailAuthorizationTests.PageObjects;
+﻿using MailAuthorizationTests.PageObjects;
+using MailAuthorizationTests.UIControls;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.MailRuPageObjects

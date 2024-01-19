@@ -6,6 +6,7 @@
         public MailRuSettings MailRu { get; set; }
         public BrowserSettings Browser { get; set; }
     }
+
     public class GmailSettings
     {
         public string GmailHostPrefix { get; set; }
@@ -32,6 +33,4 @@
     {
         public string Browser { get; set; }
     }
-
-
 }

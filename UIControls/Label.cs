@@ -1,5 +1,4 @@
-﻿using MailAuthorizationTests.Environment;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.UIControls
 {

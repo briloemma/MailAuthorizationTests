@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace MailAuthorizationTests.Tests
 {
+    [TestFixture]
     public class CheckEmailHasBeenSentAndReceived : BaseTest
     {
         [Test]

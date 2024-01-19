@@ -1,6 +1,6 @@
-﻿using MailAuthorizationTests.UIControls;
-using MailAuthorizationTests.Environment.Utils;
+﻿using MailAuthorizationTests.Environment.Utils;
 using MailAuthorizationTests.PageObjects;
+using MailAuthorizationTests.UIControls;
 using MailAuthorizationTests.Users;
 using NLog;
 using OpenQA.Selenium;

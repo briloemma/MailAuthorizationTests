@@ -1,6 +1,6 @@
-﻿using MailAuthorizationTests.UIControls;
-using MailAuthorizationTests.Environment;
+﻿using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.Environment.Utils;
+using MailAuthorizationTests.UIControls;
 using OpenQA.Selenium;
 
 namespace MailAuthorizationTests.PageObjects.GmailPageObjects

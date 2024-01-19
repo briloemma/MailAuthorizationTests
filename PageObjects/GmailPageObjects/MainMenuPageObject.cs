@@ -1,7 +1,7 @@
-﻿using MailAuthorizationTests.UIControls;
-using MailAuthorizationTests.Environment;
+﻿using MailAuthorizationTests.Environment;
 using MailAuthorizationTests.Environment.Utils;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
+using MailAuthorizationTests.UIControls;
 using NLog;
 using OpenQA.Selenium;
 
@@ -10,8 +10,8 @@ namespace MailAuthorizationTests.PageObjects
     public class MainMenuPageObject : BasePageObject
     {
 
-        private  Button WriteNewEmailButton => new Button(By.CssSelector("[style='user-select: none']"));
-        private  By NewMessageTab => By.CssSelector("[aria-label='Новое сообщение']");
+        private Button WriteNewEmailButton => new Button(By.CssSelector("[style='user-select: none']"));
+        private By NewMessageTab => By.CssSelector("[aria-label='Новое сообщение']");
         private TextInput EmailInput => new TextInput(By.CssSelector("[aria-autocomplete='list']"));
         private TextInput EmailTextField => new TextInput(By.CssSelector("[role='textbox']"));
         private Button SendButton => new Button(By.XPath("//div[contains(@data-tooltip, 'Enter')]"));
@@ -42,8 +42,6 @@ namespace MailAuthorizationTests.PageObjects
         }
         public OpenedEmailPageObject OpenReceivedEmail()
         {
-            WaitUntilPageIsDispayed();
-            WaitUtil.WaitUntilElementIsNotDisplayed(NewMessageLabel, 15, 2);
             var firstEmailLineRow = WebDriver.FindElements(EmailLineByRow).First();
             firstEmailLineRow.Click();
             return new OpenedEmailPageObject();

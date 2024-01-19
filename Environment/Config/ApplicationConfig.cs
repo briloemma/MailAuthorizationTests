@@ -1,28 +1,16 @@
-﻿using MailAuthorizationTests.Environment.Utils;
-using System.Reflection;
-using System.IO;
-using OpenQA.Selenium.Chrome;
-using NPOI.SS.Formula.Functions;
-using static MailAuthorizationTests.Environment.ApplicationConfig;
-using MailAuthorizationTests.Environment.Config;
-using OpenQA.Selenium.DevTools.V117.Schema;
-using NPOI.POIFS.Properties;
-using NPOI.OpenXmlFormats.Dml.Chart;
+﻿using MailAuthorizationTests.Environment.Config;
+using MailAuthorizationTests.Environment.Utils;
 
 namespace MailAuthorizationTests.Environment
 {
     public class ApplicationConfig
     {
-        private static string _jsonFileName = "\\applicationSettings.json";
-        private static string parent = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.ToString();
-        private static string _fullFileName = parent + _jsonFileName;
-
-
         private static readonly ApplicationSettings settings;
 
         static ApplicationConfig()
         {
-            JsonUtil.Provide(out ApplicationSettings settings, _fullFileName);
+            JsonUtil.Provide(out ApplicationSettings settings,
+                $"{Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent}/applicationSettings.json");
             ApplicationConfig.settings = settings;
         }
 

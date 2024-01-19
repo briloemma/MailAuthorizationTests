@@ -3,10 +3,12 @@ using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using MailAuthorizationTests.Users;
 using NUnit.Framework;
+[assembly: LevelOfParallelism(3)]
 
 namespace MailAuthorizationTests.Tests
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.Self)]
     public class BasicLoginTest : BaseTest
     {
         [Test]

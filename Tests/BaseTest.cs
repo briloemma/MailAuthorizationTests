@@ -4,6 +4,8 @@ using MailAuthorizationTests.Environment.Utils;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
+[assembly: LevelOfParallelism(1), Parallelizable(ParallelScope.Fixtures)]
+
 namespace MailAuthorizationTests.Tests
 {
     public class BaseTest

@@ -3,30 +3,30 @@ using MailAuthorizationTests.PageObjects;
 using MailAuthorizationTests.PageObjects.GmailPageObjects;
 using MailAuthorizationTests.Users;
 using NUnit.Framework;
-[assembly: LevelOfParallelism(3)]
 
 namespace MailAuthorizationTests.Tests
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.Self)]
     public class BasicLoginTest : BaseTest
     {
         [Test]
+        [Parallelizable(ParallelScope.Self)]
         public void BasicLoginTestCorrectInput()
         {
             MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
             authorizationPageObject.Login(UserCreator.GetGmailUser());
-            Assert.IsTrue(mainMenuPageObject.WaitUntilPageIsDispayed());
+            Assert.That(mainMenuPageObject.WaitUntilPageIsDispayed());
         }
 
         [Test]
+        [Parallelizable(ParallelScope.Self)]
         [TestCaseSource(nameof(UserList))]
         public void BasicLoginTestIncorrectEmailInput(User user, string errorMessage)
         {
             AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject();
             authorizationPageObject.SendUserEmail(user);
-            Assert.IsTrue(authorizationPageObject.GetEmailNotFoundMessage());
+            Assert.That(authorizationPageObject.GetEmailNotFoundMessage());
             Assert.That(authorizationPageObject.GetEmailNotFoundTextMessage(), Is.EqualTo(errorMessage));
         }
 

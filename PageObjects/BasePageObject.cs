@@ -11,8 +11,7 @@ namespace MailAuthorizationTests.PageObjects
         {
             _locator = locator;
         }
-
-        public static IWebDriver WebDriver => WebDriverFactory.GetInstance();
+        public  IWebDriver WebDriver => WebDriverFactory.GetInstance();
         public bool WaitUntilPageIsDispayed()
         {
             return WaitUtil.WaitForElementIsDisplayed(_locator, $"{GetType().Name} is not found");

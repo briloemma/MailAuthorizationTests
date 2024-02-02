@@ -107,22 +107,28 @@ namespace MailAuthorizationTests.Environment.Utils
 
         public static bool WaitForEmailInMailRuInbox(string receivedEmailBody, string errorMessage = "Sent email is different from received email")
         {
-            var webDriver = WebDriverFactory.GetInstance();
-            WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
-            wait.PollingInterval = TimeSpan.FromSeconds(10);
-            try
+            object locker = new object();
+            lock (locker)
             {
-                return wait.Until(webDriver =>
+                var webDriver = WebDriverFactory.GetInstance();
+                WebDriverWait wait = new(webDriver, TimeSpan.FromMinutes(10));
+                wait.PollingInterval = TimeSpan.FromSeconds(10);
+
+                try
                 {
-                    webDriver.Navigate().Refresh();
-                    return new PageObjects.MailRuPageObjects.RUMainMenuPageObject().IsEmailReceived(receivedEmailBody);
-                });
+                    return wait.Until(webDriver =>
+                    {
+                        webDriver.Navigate().Refresh();
+                        return new PageObjects.MailRuPageObjects.RUMainMenuPageObject().IsEmailReceived(receivedEmailBody);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"{receivedEmailBody} {errorMessage}" + "\n" + $"{ex.Message}");
+                    throw new NotFoundException($"{errorMessage}" + "\n" + $"{ex.Message}");
+                }
             }
-            catch (Exception ex)
-            {
-                logger.Error($"{receivedEmailBody} {errorMessage}" + "\n" + $"{ex.Message}");
-                throw new NotFoundException($"{errorMessage}" + "\n" + $"{ex.Message}");
-            }
+
         }
     }
 }

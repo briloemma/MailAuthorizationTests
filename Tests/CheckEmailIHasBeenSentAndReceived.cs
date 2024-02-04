@@ -19,8 +19,7 @@ namespace MailAuthorizationTests.Tests
             if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
-            Assert.That(rUMainMenu.IsEmailReceivedAndNotRead(sentMessage));
+            Assert.That(rUMainMenu.IsEmailNotRead(sentMessage));
         }
 
         [Test]
@@ -32,7 +31,6 @@ namespace MailAuthorizationTests.Tests
             if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             string actual = rUMainMenu.CheckInbox(sentMessage).GetSender();
             Assert.That(actual, Is.EqualTo(ApplicationConfig.GmailUserName));
         }
@@ -46,7 +44,6 @@ namespace MailAuthorizationTests.Tests
             if (AlertUtil.CheckAlertPresence())
                 WebDriverFactory.GetInstance().SwitchTo().Alert().Accept();
             RUMainMenuPageObject rUMainMenu = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(expected);
             string actual = rUMainMenu.CheckInbox(expected).GetEmailBody();
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -92,10 +89,9 @@ namespace MailAuthorizationTests.Tests
             return ruAuthorization.Authorize(UserCreator.GetMailRuUser());
         }
 
-        private MailAuthorizationTests.MailRuPageObjects.RUResponsePageObject LogInMailRuInboxAndSendResponce(string sentMessage, string expectedPseudonim)
+        private MailRuPageObjects.RUResponsePageObject LogInMailRuInboxAndSendResponce(string sentMessage, string expectedPseudonim)
         {
             RUMainMenuPageObject ruMainPage = LogInMailRuReceiverInbox();
-            WaitUtil.WaitForEmailInMailRuInbox(sentMessage);
             ruMainPage
                .CheckInbox(sentMessage)
                .OpenResponsePage()

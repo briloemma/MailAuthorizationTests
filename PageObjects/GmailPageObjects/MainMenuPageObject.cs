@@ -42,8 +42,7 @@ namespace MailAuthorizationTests.PageObjects
         }
         public OpenedEmailPageObject OpenReceivedEmail()
         {
-            var firstEmailLineRow = WebDriver.FindElements(EmailLineByRow).First();
-            firstEmailLineRow.Click();
+            WebDriver.FindElements(EmailLineByRow).First().Click();
             return new OpenedEmailPageObject();
         }
 

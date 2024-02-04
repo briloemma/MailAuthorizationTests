@@ -15,29 +15,29 @@ namespace MailAuthorizationTests.PageObjects.MailRuPageObjects
         {
         }
 
-        public bool IsEmailReceivedAndNotRead(string receivedEmailBody)
-        {
-            return IsEmailReceived(receivedEmailBody) && IsEmailNotRead();
-        }
         public RUOpenedEmailPageObject CheckInbox(string receivedEmailBody)
         {
-            if (IsEmailReceivedAndNotRead(receivedEmailBody))
-                WaitUtil.WaitForElementIsDisplayed(EmailLineByUser(ApplicationConfig.GmailUserName));
-            WebDriver.FindElements(EmailLineByUser(ApplicationConfig.GmailUserName)).First().Click();
+            WaitUtil.WaitForEmailInMailRuInbox(receivedEmailBody);
+            FindEmailBySenderAndBody(receivedEmailBody).Click();
             return new RUOpenedEmailPageObject();
         }
 
         public bool IsEmailReceived(string receivedEmailBody)
         {
             WaitUtil.WaitForElementIsDisplayed(EmailLineByRow);
-            return WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByContent).Text.Contains(receivedEmailBody) &&
-            WebDriver.FindElements(EmailLineByRow).First().FindElement(EmailLineByUser(ApplicationConfig.GmailLogin)).Displayed;
+            return FindEmailBySenderAndBody(receivedEmailBody) is not null;
         }
 
-        private bool IsEmailNotRead()
+        public bool IsEmailNotRead(string receivedEmailBody)
         {
-            WaitUtil.WaitForElementIsDisplayed(ReadEmailButton);
-            return WebDriver.FindElements(EmailLineByRow).First().FindElement(ReadEmailButton).Displayed;
+            WaitUtil.WaitForEmailInMailRuInbox(receivedEmailBody);
+            return FindEmailBySenderAndBody(receivedEmailBody).FindElement(ReadEmailButton).Displayed;
+        }
+
+        private IWebElement FindEmailBySenderAndBody(string receivedEmailBody)
+        {
+            return WebDriver.FindElements(EmailLineByRow).FirstOrDefault(element => element.FindElement(EmailLineByContent).Text.Contains(receivedEmailBody)
+             && element.FindElement(EmailLineByUser(ApplicationConfig.GmailLogin)).Displayed);
         }
     }
 }

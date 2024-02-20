@@ -10,7 +10,6 @@ namespace MailAuthorizationTests.Tests
     public class BasicLoginTest : BaseTest
     {
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void BasicLoginTestCorrectInput()
         {
             MainMenuPageObject mainMenuPageObject = new MainMenuPageObject();
@@ -20,7 +19,6 @@ namespace MailAuthorizationTests.Tests
         }
 
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         [TestCaseSource(nameof(UserList))]
         public void BasicLoginTestIncorrectEmailInput(User user, string errorMessage)
         {

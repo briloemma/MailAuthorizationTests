@@ -11,7 +11,6 @@ namespace MailAuthorizationTests.Tests
     public class CheckEmailHasBeenSentAndReceived : BaseTest
     {
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void CheckEmailHasBeenReceived()
         {
             string sentMessage = LogInGmailAndSendEmail();
@@ -23,7 +22,6 @@ namespace MailAuthorizationTests.Tests
         }
 
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void CheckSender()
         {
             string sentMessage = LogInGmailAndSendEmail();
@@ -36,7 +34,6 @@ namespace MailAuthorizationTests.Tests
         }
 
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void CheckEmailBody()
         {
             string expected = LogInGmailAndSendEmail();
@@ -50,7 +47,6 @@ namespace MailAuthorizationTests.Tests
 
         [Category(SPECIAL_SETUP)]
         [Test]
-        [Parallelizable(ParallelScope.Self)]
         public void ChekGmailAccountPseudonimHasBeenChangedCorrectly()
         {
             string expectedPseudonim = $"{ApplicationConfig.NewGmailPseudonim}" + $"{GenerateTestDataUtil.GetRandomNumber()}";
